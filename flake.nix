@@ -16,7 +16,7 @@
       nixos = lib.nixosSystem {
         inherit system;
         modules = [
-          ./etc/nixos/configuration.nix
+          ./hosts/kvm/default/configuration.nix
           ./system/hyprland.nix
         ];
       };
