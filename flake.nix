@@ -24,6 +24,7 @@
         modules = [
           ./hosts/kvm/default/configuration.nix
           ./system/users/alice.nix
+          ./system/shared-fs.nix
           ./system/hyprland.nix
         ];
       };
@@ -31,7 +32,7 @@
     homeConfigurations = {
       alice = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ ./home.nix ];
+        modules = [ ./alice.nix ];
       };
     };
   };
