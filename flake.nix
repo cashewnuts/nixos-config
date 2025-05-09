@@ -17,6 +17,13 @@
         inherit system;
         modules = [
           ./hosts/kvm/default/configuration.nix
+        ];
+      };
+      alice = lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./hosts/kvm/default/configuration.nix
+          ./system/users/alice.nix
           ./system/hyprland.nix
         ];
       };

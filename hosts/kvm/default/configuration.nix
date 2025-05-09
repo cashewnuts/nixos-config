@@ -59,15 +59,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.alice = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      tree
-    ];
-  };
-
   # programs.firefox.enable = true;
 
   # List packages installed in system profile. To search, run:
@@ -121,10 +112,5 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11"; # Did you read the comment?
-
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    allowed-users = [ "alice" ];
-  };
 }
 
