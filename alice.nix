@@ -29,6 +29,7 @@
     # pkgs.hello
     pkgs.neovim
     pkgs.fzf
+    pkgs.ripgrep
     pkgs.gitui
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
