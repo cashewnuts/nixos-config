@@ -11,6 +11,10 @@
     ];
   };
 
+  environment.shells = with pkgs; [ zsh ];
+  users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
+
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     allowed-users = [ "alice" ];
