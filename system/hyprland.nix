@@ -14,6 +14,7 @@
 
   environment.systemPackages = [
     pkgs.kitty
+    pkgs.wl-clipboard
   ];
 
   environment.sessionVariables = {
