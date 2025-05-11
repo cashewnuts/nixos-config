@@ -26,6 +26,7 @@
           ./system/users/alice.nix
           ./system/shared-fs.nix
           ./system/hyprland.nix
+          ./system/fcitx5.nix
         ];
       };
     };
