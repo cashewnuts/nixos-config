@@ -9,6 +9,8 @@
     packages = with pkgs; [
       tree
       gcc
+      file
+      cryptsetup
     ];
   };
 
@@ -16,6 +18,21 @@
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
   programs.firefox.enable = true;
+  programs.nix-ld.enable = true;
+
+  environment.etc.crypttab = {
+    mode = "0600";
+    text = ''
+     # <volume-name> <encrypted-device> [key-file] [options]
+     store-data	/dev/vdb	/home/alice/.ssh/id_ed25519	noauto,discard
+    '';
+  };
+
+  fileSystems."/mnt/data" =
+    { device = "/dev/mapper/store-data";
+      fsType = "ext4";
+      options = [ "defaults" "users" "noauto" ];
+    };
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
