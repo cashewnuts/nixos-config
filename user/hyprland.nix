@@ -5,5 +5,6 @@
   home.packages = [
     pkgs.walker
     pkgs.nautilus
+    pkgs.waybar
   ];
 }
