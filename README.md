@@ -18,5 +18,12 @@ sudo nixos-rebuild switch --flake ~/nix-config
 sudo nixos-rebuild switch --flake ~/nix-config
 # Update home-manager
 home-manager switch --flake ~/nix-config
+
+# Remove all generation
+sudo nix-collect-garbage -d
+# Remove generation with period
+sudo nix-collect-garbage --delete-older-than 3d
+# Expire home manager generation with days
+home-manager expire-generations "-3 days"
 ```
 
