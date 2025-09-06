@@ -9,7 +9,7 @@ nix-shell -p git
 # Clone github config repo
 git clone https://github.com/cashewnuts/nixos-config.git ~/nix-config
 # Rebuild with repo
-sudo nixos-rebuild switch --flake ~/nix-config
+sudo nixos-rebuild boot --flake ~/nix-config
 ```
 
 ## Basic commands
