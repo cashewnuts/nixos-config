@@ -5,7 +5,8 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.alice = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    uid = 1000;
+    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
       gcc
@@ -27,10 +28,10 @@
     '';
   };
 
-  fileSystems."/mnt/data" =
-    { device = "/dev/mapper/store-data";
-      fsType = "ext4";
-      options = [ "defaults" "users" "noauto" ];
+  fileSystems."/home/alice/.ssh" =
+    { device = "user_ssh";
+      fsType = "virtiofs";
+      options = [ "defaults" "users" "nofail" ];
     };
 
   nix.settings = {

@@ -15,6 +15,11 @@ nix-channel --add https://github.com/nix-community/home-manager/archive/release-
   && nix-channel --update \
   && nix-shell '<home-manager>' -A install
 home-manager switch --flake ~/nix-config
+
+# Setup fcitx for mozc
+fcitx-configtool
+# Generate walker config
+walker -C
 ```
 
 ## Basic commands

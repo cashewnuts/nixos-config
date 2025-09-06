@@ -25,7 +25,6 @@
           ./hosts/kvm/default/configuration.nix
           ./system/fonts.nix
           ./system/users/alice.nix
-          ./system/shared-fs.nix
           ./system/hyprland.nix
           ./system/fcitx5.nix
           ./system/firefox.nix
