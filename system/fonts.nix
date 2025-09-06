@@ -4,6 +4,8 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
-    (nerdfonts.override { fonts = [ "FiraCode" "FiraMono" "UbuntuMono" ]; })
+    nerd-fonts.fira-code
+    nerd-fonts.fira-mono
+    nerd-fonts.ubuntu-mono
   ];
 }
