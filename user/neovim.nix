@@ -60,6 +60,37 @@
       };  
     };
     plugins = {
+      lsp = {
+        enable = true;
+        keymaps = {  
+          silent = true;  
+          diagnostic = {  
+            "<leader>k" = "goto_prev";  
+            "<leader>j" = "goto_next";  
+          };  
+          lspBuf = {  
+            "gd" = "definition";  
+            "gD" = "references";  
+            "gt" = "type_definition";  
+            "gi" = "implementation";  
+            "K" = "hover";  
+          };  
+          extra = [  
+            {  
+              key = "<leader>li";  
+              action = "<CMD>LspInfo<Enter>";  
+            }  
+            {  
+              key = "<leader>lr";  
+              action = "<CMD>LspRestart<Enter>";  
+            }  
+          ];  
+        };
+        servers = {
+          bashls.enable = true;
+          nil_ls.enable = true;
+        };
+      };
       web-devicons.enable = true;
       neo-tree = {
         enable = true;
