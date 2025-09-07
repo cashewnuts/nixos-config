@@ -1,12 +1,14 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixvim, ... }:
 
 {
 
   imports = [
+    nixvim.homeManagerModules.nixvim
     ./user/zsh.nix
     ./user/hyprland.nix
     ./user/firefox.nix
     ./user/devenv.nix
+    ./user/neovim.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -29,7 +31,6 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
-    pkgs.neovim
     pkgs.fzf
     pkgs.ripgrep
     pkgs.gitui
@@ -80,10 +81,6 @@
   #
   #  /etc/profiles/per-user/alice/etc/profile.d/hm-session-vars.sh
   #
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
-
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
