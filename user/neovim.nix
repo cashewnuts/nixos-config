@@ -51,6 +51,14 @@
         options.desc = "Open Neotree";
       }
     ];
+    colorschemes.tokyonight = {  
+      # https://github.com/folke/tokyonight.nvim
+      enable = true;  
+      settings = {  
+        style = "moon"; 
+        light_style = "day";  
+      };  
+    };
     plugins = {
       web-devicons.enable = true;
       neo-tree = {
