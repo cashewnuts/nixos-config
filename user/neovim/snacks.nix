@@ -5,6 +5,14 @@
       snacks = {
         enable = true;
         autoLoad = true;
+        settings = {
+          bigfile = {
+            enable = true;
+          };
+          statuscolumn = {
+            enable = true;
+          };
+        };
       };
     };
     keymaps = [
@@ -18,12 +26,11 @@
         };
       }
       {
-        key = "<leader>e";
+        key = "<leader>/";
         mode = [ "n" ];
-        action = "<cmd>lua Snacks.explorer()<CR>";
+        action = "<cmd>lua Snacks.picker.grep()<CR>";
         options = {
-          silent = true;
-          noremap = true;
+          desc = "Grep";
         };
       }
       {
@@ -72,12 +79,39 @@
         mode = [ "n" ];
         action = "<cmd>lua Snacks.picker.command_history()<CR>";
       }
+      # Buffer
+      {
+        key = "<leader>bd";
+        mode = [ "n" ];
+        action = "<cmd>lua Snacks.bufdelete()<CR>";
+        options = {
+          desc = "Delete Buffer without affecting window";
+        };
+      }
+      # Explorer
+      {
+        key = "<leader>e";
+        mode = [ "n" ];
+        action = "<cmd>lua Snacks.explorer()<CR>";
+        options = {
+          desc = "Open explorer";
+          silent = true;
+          noremap = true;
+        };
+      }
       # Terminal
       {
         key = "<C-/>";
         mode = [ "n" "t" ];
         action = "<cmd>lua Snacks.terminal()<CR>";
         options.desc = "Toggle Terminal";
+      }
+      # Zen
+      {
+        key = "<leader>z";
+        mode = [ "n" ];
+        action = "<cmd>lua Snacks.zen()<CR>";
+        options.desc = "Toggle Zen";
       }
     ];
   };

@@ -1,6 +1,8 @@
 { pkgs, lib, ... }:
 {
   imports = [
+    ./colorschemes.nix
+    ./keymaps.nix
     ./snacks.nix
     ./web-devicons.nix
   ];
@@ -43,46 +45,6 @@
     localOpts = {
       # Concealment level for current buffer
       conceallevel = 0;
-    };
-    keymaps = [
-      # {
-      #   key = "<leader>e";
-      #   action = "<Cmd>Neotree<CR>";
-      #   mode = "n";
-      #   options.desc = "Open Neotree";
-      # }
-      # {
-      #   key = "<C-h>";
-      #   action = "<C-w>h";
-      #   mode = "n";
-      #   options.desc = "Focus Left Window";
-      # }
-      # {
-      #   key = "<C-j>";
-      #   action = "<C-w>j";
-      #   mode = "n";
-      #   options.desc = "Focus Down Window";
-      # }
-      # {
-      #   key = "<C-k>";
-      #   action = "<C-w>k";
-      #   mode = "n";
-      #   options.desc = "Focus Up Window";
-      # }
-      # {
-      #   key = "<C-l>";
-      #   action = "<C-w>l";
-      #   mode = "n";
-      #   options.desc = "Focus Right Window";
-      # }
-    ];
-    colorschemes.tokyonight = {  
-      # https://github.com/folke/tokyonight.nvim
-      enable = true;  
-      settings = {  
-        style = "moon"; 
-        light_style = "day";  
-      };  
     };
     plugins = {
       lsp = {
