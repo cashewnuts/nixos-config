@@ -5,6 +5,8 @@
     enable = true;
     wayland = true;
   };
+  # for trash
+  services.gvfs.enable = true;
 
   programs.hyprland = {
     enable = true;
