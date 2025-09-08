@@ -99,6 +99,15 @@
           noremap = true;
         };
       }
+      # Gitbrowse
+      {
+        key = "<leader>gb";
+        mode = [ "n" ];
+        action = "<cmd>lua Snacks.gitbrowse()<CR>";
+        options = {
+          desc = "Open Git Page";
+        };
+      }
       # Terminal
       {
         key = "<C-/>";

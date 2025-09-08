@@ -1,8 +1,10 @@
 { pkgs, lib, ... }:
 {
   imports = [
+    ./bufferline.nix
     ./colorschemes.nix
     ./keymaps.nix
+    ./lualine.nix
     ./snacks.nix
     ./web-devicons.nix
   ];
