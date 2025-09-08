@@ -99,6 +99,16 @@
           noremap = true;
         };
       }
+      {
+        key = "<leader>E";
+        mode = [ "n" ];
+        action = "<cmd>lua Snacks.explorer.reveal()<CR>";
+        options = {
+          desc = "Reveal in explorer";
+          silent = true;
+          noremap = true;
+        };
+      }
       # Gitbrowse
       {
         key = "<leader>gb";
