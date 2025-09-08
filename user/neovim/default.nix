@@ -1,10 +1,11 @@
+{ pkgs, lib, ... }:
 {
-  programs.nixvim = {
-    enable = true;
-    defaultEditor = true;
-    vimdiffAlias = true;
-    wrapRc = false;
+  imports = [
+    ./snacks.nix
+    ./web-devicons.nix
+  ];
 
+  config = {
     globals = {
       mapleader = "\\"; # Sets the leader
       maplocalleader = "\\";
@@ -44,12 +45,36 @@
       conceallevel = 0;
     };
     keymaps = [
-      {
-        key = "<leader>e";
-        action = "<Cmd>Neotree<CR>";
-        mode = "n";
-        options.desc = "Open Neotree";
-      }
+      # {
+      #   key = "<leader>e";
+      #   action = "<Cmd>Neotree<CR>";
+      #   mode = "n";
+      #   options.desc = "Open Neotree";
+      # }
+      # {
+      #   key = "<C-h>";
+      #   action = "<C-w>h";
+      #   mode = "n";
+      #   options.desc = "Focus Left Window";
+      # }
+      # {
+      #   key = "<C-j>";
+      #   action = "<C-w>j";
+      #   mode = "n";
+      #   options.desc = "Focus Down Window";
+      # }
+      # {
+      #   key = "<C-k>";
+      #   action = "<C-w>k";
+      #   mode = "n";
+      #   options.desc = "Focus Up Window";
+      # }
+      # {
+      #   key = "<C-l>";
+      #   action = "<C-w>l";
+      #   mode = "n";
+      #   options.desc = "Focus Right Window";
+      # }
     ];
     colorschemes.tokyonight = {  
       # https://github.com/folke/tokyonight.nvim
@@ -89,29 +114,6 @@
         servers = {
           bashls.enable = true;
           nil_ls.enable = true;
-        };
-      };
-      web-devicons.enable = true;
-      neo-tree = {
-        enable = true;
-        closeIfLastWindow = true;  # Close if it's the last window  
-        window = {  
-          position = "left";  
-          width = 40;  
-          mappings = {  
-            "<space>" = "toggle_node";  
-            "<cr>" = "open";  
-            # ... more keymaps  
-          };  
-        };
-        filesystem = {  
-          followCurrentFile = {  
-            enabled = true;  # Highlight current file  
-          };  
-          filteredItems = {  
-            hideDotfiles = false;  
-            hideGitignored = true;  
-          };  
         };
       };
     };

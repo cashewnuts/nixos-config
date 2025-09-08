@@ -38,7 +38,7 @@
     homeConfigurations = {
       alice = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = { inherit nixvim; };
+        extraSpecialArgs = { inherit system; inherit nixvim; };
         modules = [ ./alice.nix ];
       };
     };

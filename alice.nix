@@ -1,14 +1,22 @@
-{ config, pkgs, nixvim, ... }:
-
-{
+{ config, system, pkgs, nixvim, ... }:
+let
+  neovimconfig = import ./user/neovim;
+  nvim = nixvim.legacyPackages.${system}.makeNixvimWithModule {
+    inherit pkgs;
+    module = neovimconfig;
+    extraSpecialArgs = {
+      defaultEditor = true;
+      vimdiffAlias = true;
+      wrapRc = false;
+    };
+  };
+in {
 
   imports = [
-    nixvim.homeManagerModules.nixvim
     ./user/zsh.nix
     ./user/hyprland.nix
     ./user/firefox.nix
     ./user/devenv.nix
-    ./user/neovim.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -31,6 +39,7 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
+    nvim
     pkgs.fzf
     pkgs.ripgrep
     pkgs.gitui
