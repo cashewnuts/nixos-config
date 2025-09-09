@@ -1,12 +1,15 @@
 { pkgs, lib, ... }:
 {
   imports = [
+    ./blink-cmp.nix
     ./bufferline.nix
     ./colorschemes.nix
     ./keymaps.nix
     ./lualine.nix
     ./snacks.nix
+    ./treesitter.nix
     ./web-devicons.nix
+    ./whichkey.nix
   ];
 
   config = {
