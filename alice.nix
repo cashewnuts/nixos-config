@@ -1,4 +1,10 @@
-{ config, system, pkgs, nixvim, ... }:
+{
+  config,
+  system,
+  pkgs,
+  nixvim,
+  ...
+}:
 {
 
   imports = [

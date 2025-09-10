@@ -26,8 +26,8 @@
       relativenumber = true;
 
       # Indentation
-      tabstop = 4;
-      shiftwidth = 4;
+      tabstop = 2;
+      shiftwidth = 2;
       expandtab = true;
 
       # Search behavior

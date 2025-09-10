@@ -2,7 +2,7 @@
 {
   plugins.treesitter = {
     enable = true;
-    settings.indent ={
+    settings.indent = {
       enable = true;
     };
   };
@@ -201,4 +201,3 @@
     };
   };
 }
-

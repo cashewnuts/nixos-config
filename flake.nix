@@ -19,40 +19,52 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, stylix, ... }:
-    let 
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nixvim,
+      stylix,
+      ...
+    }:
+    let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-    in {
-    nixosConfigurations = {
-      nixos = lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./hosts/kvm/default/configuration.nix
-        ];
+    in
+    {
+      nixosConfigurations = {
+        nixos = lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./hosts/kvm/default/configuration.nix
+          ];
+        };
+        alice = lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./hosts/kvm/default/configuration.nix
+            ./system/fonts.nix
+            ./system/users/alice.nix
+            ./system/hyprland.nix
+            ./system/fcitx5.nix
+            ./system/firefox.nix
+          ];
+        };
       };
-      alice = lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./hosts/kvm/default/configuration.nix
-          ./system/fonts.nix
-          ./system/users/alice.nix
-          ./system/hyprland.nix
-          ./system/fcitx5.nix
-          ./system/firefox.nix
-        ];
+      homeConfigurations = {
+        alice = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = {
+            inherit system;
+            inherit nixvim;
+          };
+          modules = [
+            stylix.homeModules.stylix
+            ./alice.nix
+          ];
+        };
       };
     };
-    homeConfigurations = {
-      alice = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = { inherit system; inherit nixvim; };
-        modules = [
-          stylix.homeModules.stylix
-          ./alice.nix
-        ];
-      };
-    };
-  };
 }

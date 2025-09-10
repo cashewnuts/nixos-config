@@ -1,4 +1,4 @@
-{ config, pkgs, ...}:
+{ config, pkgs, ... }:
 {
   programs.firefox = {
     enable = true;
@@ -16,7 +16,10 @@
         search = {
           force = true;
           default = "ddg";
-          order = [ "ddg" "google" ];
+          order = [
+            "ddg"
+            "google"
+          ];
         };
       };
     };

@@ -1,6 +1,5 @@
 # Configuration
 
-
 ## Setup nixos
 
 ```bash
@@ -23,6 +22,7 @@ walker -C
 ```
 
 ## Basic commands
+
 ```bash
 # Rebuild OS level config with ~/nix-config
 sudo nixos-rebuild switch --flake ~/nix-config
@@ -36,4 +36,3 @@ sudo nix-collect-garbage --delete-older-than 3d
 # Expire home manager generation with days
 home-manager expire-generations "-3 days"
 ```
-

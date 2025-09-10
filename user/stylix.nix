@@ -1,4 +1,5 @@
-{ pkgs, ...}: {
+{ pkgs, ... }:
+{
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
@@ -13,7 +14,7 @@
         name = "DejaVu Sans";
       };
 
-      monospace = {  
+      monospace = {
         package = pkgs.nerd-fonts.ubuntu-mono;
         name = "UbuntuMono Nerd Font Mono";
       };

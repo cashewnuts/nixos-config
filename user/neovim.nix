@@ -1,4 +1,9 @@
-{ system, pkgs, nixvim, ... }:
+{
+  system,
+  pkgs,
+  nixvim,
+  ...
+}:
 let
   neovimconfig = import ./neovim;
   nvim = nixvim.legacyPackages.${system}.makeNixvimWithModule {
@@ -10,7 +15,8 @@ let
       wrapRc = false;
     };
   };
-in {
+in
+{
   home.sessionVariables = {
     EDITOR = "nvim";
   };
@@ -18,4 +24,3 @@ in {
     nvim
   ];
 }
-

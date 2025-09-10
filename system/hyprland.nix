@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   services.xserver.displayManager.gdm = {
@@ -25,4 +30,3 @@
 
   hardware.graphics.enable = true;
 }
-

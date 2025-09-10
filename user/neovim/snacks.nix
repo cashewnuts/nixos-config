@@ -121,7 +121,10 @@
       # Terminal
       {
         key = "<C-/>";
-        mode = [ "n" "t" ];
+        mode = [
+          "n"
+          "t"
+        ];
         action = "<cmd>lua Snacks.terminal()<CR>";
         options.desc = "Toggle Terminal";
       }
