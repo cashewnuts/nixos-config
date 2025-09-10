@@ -3,12 +3,15 @@
 
   imports = [
     ./user/zsh.nix
-    ./user/kitty.nix
     ./user/hyprland.nix
     ./user/firefox.nix
     ./user/devenv.nix
     ./user/neovim.nix
+    ./user/stylix.nix
   ];
+
+  # due to home-manager/stylix bug add this line
+  home.enableNixpkgsReleaseCheck = false;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.

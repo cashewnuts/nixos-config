@@ -3,14 +3,23 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager = {
+      # due to stylix error cannot use 25.05
+      # url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, ... }:
+  outputs = { self, nixpkgs, home-manager, nixvim, stylix, ... }:
     let 
       lib = nixpkgs.lib;
       system = "x86_64-linux";
@@ -39,7 +48,10 @@
       alice = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = { inherit system; inherit nixvim; };
-        modules = [ ./alice.nix ];
+        modules = [
+          stylix.homeModules.stylix
+          ./alice.nix
+        ];
       };
     };
   };
