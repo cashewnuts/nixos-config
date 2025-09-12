@@ -1,6 +1,7 @@
 {
   config,
   system,
+  username,
   pkgs,
   nixvim,
   ...
@@ -21,8 +22,8 @@
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "alice";
-  home.homeDirectory = "/home/alice";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -95,7 +96,7 @@
 
   programs.git = {
     enable = true;
-    userName = "alice";
-    userEmail = "cashewnuts903+alice@gmail.com";
+    userName = username;
+    userEmail = "cashewnuts903+${username}@gmail.com";
   };
 }

@@ -43,6 +43,9 @@
         };
         alice = lib.nixosSystem {
           inherit system;
+          specialArgs = {
+            username = "alice";
+          };
           modules = [
             ./hosts/kvm/default/configuration.nix
             ./system/fonts.nix
@@ -59,6 +62,7 @@
           extraSpecialArgs = {
             inherit system;
             inherit nixvim;
+            username = "alice";
           };
           modules = [
             stylix.homeModules.stylix

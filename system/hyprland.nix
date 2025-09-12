@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  username,
   pkgs,
   ...
 }:
@@ -9,6 +10,10 @@
   services.xserver.displayManager.gdm = {
     enable = true;
     wayland = true;
+    autoLogin = {
+      enable = true;
+      user = username;
+    };
   };
   # for trash
   services.gvfs.enable = true;

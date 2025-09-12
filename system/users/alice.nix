@@ -1,14 +1,15 @@
 {
   config,
   lib,
+  username,
   pkgs,
   ...
 }:
 
 {
-  networking.hostName = "alice"; # Define your hostname.
+  networking.hostName = username; # Define your hostname.
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.alice = {
+  users.users.${username} = {
     isNormalUser = true;
     uid = 1000;
     extraGroups = [
@@ -32,11 +33,11 @@
     mode = "0600";
     text = ''
       # <volume-name> <encrypted-device> [key-file] [options]
-      store-data	/dev/vdb	/home/alice/.ssh/id_ed25519	noauto,discard
+      store-data	/dev/disk/by-uuid/c975cdfa-0bfd-4e42-a5fe-c00b2292d88a	none	noauto,discard,fido2-device=auto
     '';
   };
 
-  fileSystems."/home/alice/.ssh" = {
+  fileSystems."/home/${username}/.ssh" = {
     device = "user_ssh";
     fsType = "virtiofs";
     options = [
@@ -46,11 +47,32 @@
     ];
   };
 
+  fileSystems."/home/${username}/projects" = {
+    device = "projects_personal";
+    fsType = "virtiofs";
+    options = [
+      "defaults"
+      "users"
+      "nofail"
+    ];
+  };
+
+  fileSystems."/mnt/data" = {
+    device = "/dev/mapper/store-data";
+    fsType = "ext4";
+    options = [
+      "defaults"
+      "users"
+      "noauto"
+      "nofail"
+    ];
+  };
+
   nix.settings = {
     experimental-features = [
       "nix-command"
       "flakes"
     ];
-    allowed-users = [ "alice" ];
+    allowed-users = [ username ];
   };
 }
