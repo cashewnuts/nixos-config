@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  username,
+  pkgs,
+  ...
+}:
 
 {
   programs.zsh = {
@@ -8,8 +13,8 @@
     syntaxHighlighting.enable = true;
 
     shellAliases = {
-      update = "sudo nixos-rebuild switch --flake ~/nix-config";
-      home-update = "home-manager switch --flake ~/nix-config";
+      update = "sudo nixos-rebuild switch --flake ~/nix-config#${username}";
+      home-update = "home-manager switch --flake ~/nix-config#${username}";
     };
 
     plugins = [
