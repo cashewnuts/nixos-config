@@ -34,6 +34,9 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
+      packages.${system} = {
+        build_iso = self.nixosConfigurations.iso.config.system.build.isoImage;
+      };
       nixosConfigurations = {
         nixos = lib.nixosSystem {
           inherit system;
@@ -48,11 +51,17 @@
           };
           modules = [
             ./hosts/kvm/default/configuration.nix
-            ./system/fonts.nix
             ./system/users/alice.nix
+            ./system/fonts.nix
             ./system/hyprland.nix
             ./system/fcitx5.nix
             ./system/firefox.nix
+          ];
+        };
+        iso = lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./system/users/iso.nix
           ];
         };
       };

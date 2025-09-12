@@ -36,3 +36,9 @@ sudo nix-collect-garbage --delete-older-than 3d
 # Expire home manager generation with days
 home-manager expire-generations "-3 days"
 ```
+
+## build iso
+
+```bash
+nix build ~/nix-config#build_iso
+```
