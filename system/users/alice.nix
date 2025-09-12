@@ -48,7 +48,7 @@
   };
 
   fileSystems."/home/${username}/projects" = {
-    device = "projects_personal";
+    device = "projects";
     fsType = "virtiofs";
     options = [
       "defaults"
