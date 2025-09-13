@@ -19,6 +19,11 @@
   # Use less privileged nixos user
   users.users.${username} = {
     isNormalUser = true;
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+    ]; # Enable ‘sudo’ for the user.
     # Allow the graphical user to login without password
     initialHashedPassword = "";
   };

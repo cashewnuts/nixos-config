@@ -7,6 +7,8 @@
   pkgs,
   options,
   modulesPath,
+  username,
+  fileSystems,
   ...
 }:
 
@@ -31,6 +33,14 @@
   # Add Memtest86+ to the CD.
   boot.loader.grub.memtest86.enable = true;
 
+  environment.etc.crypttab = {
+    mode = "0600";
+    text = ''
+      # <volume-name> <encrypted-device> [key-file] [options]
+      store-data	/dev/disk/by-uuid/c975cdfa-0bfd-4e42-a5fe-c00b2292d88a	none	noauto,discard,fido2-device=auto
+    '';
+  };
+
   # An installation media cannot tolerate a host config defined file
   # system layout on a fresh machine, before it has been formatted.
   swapDevices = lib.mkImageMediaOverride [ ];
@@ -53,4 +63,12 @@
   ];
 
   programs.git.enable = lib.mkDefault true;
+
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    allowed-users = [ username ];
+  };
 }
