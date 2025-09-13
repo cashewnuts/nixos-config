@@ -17,10 +17,18 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    {
+    inputs@{
       self,
       nixpkgs,
       home-manager,
@@ -35,7 +43,42 @@
     in
     {
       packages.${system} = {
-        build_iso = self.nixosConfigurations.iso.config.system.build.isoImage;
+        build_iso =
+          let
+            username = "alice";
+          in
+          inputs.nixos-generators.nixosGenerate {
+            inherit system;
+            specialArgs = {
+              inherit username;
+            };
+            modules = [
+              ./hosts/iso/configuration.nix
+              ./system/fonts.nix
+              ./system/hyprland.nix
+              ./system/fcitx5.nix
+              ./system/firefox.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = false;
+                  useUserPackages = true;
+                  extraSpecialArgs = {
+                    inherit system;
+                    inherit nixvim;
+                    inherit username;
+                  };
+                  users.alice = {
+                    imports = [
+                      stylix.homeModules.stylix
+                      ./alice.nix
+                    ];
+                  };
+                };
+              }
+            ];
+            format = "iso";
+          };
       };
       nixosConfigurations = {
         nixos = lib.nixosSystem {
@@ -56,12 +99,6 @@
             ./system/hyprland.nix
             ./system/fcitx5.nix
             ./system/firefox.nix
-          ];
-        };
-        iso = lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./system/users/iso.nix
           ];
         };
       };

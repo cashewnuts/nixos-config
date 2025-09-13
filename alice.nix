@@ -73,6 +73,9 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+    "README.md" = {
+      source = ./docs/alice.md;
+    };
   };
 
   # Home Manager can also manage your environment variables through
