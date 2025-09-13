@@ -11,6 +11,7 @@
   imports = [
     ./user/zsh.nix
     ./user/hyprland.nix
+    ./user/fcitx5.nix
     ./user/firefox.nix
     ./user/devenv.nix
     ./user/neovim.nix
