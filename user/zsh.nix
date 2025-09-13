@@ -14,7 +14,6 @@
 
     shellAliases = {
       update = "sudo nixos-rebuild switch --flake ~/nix-config#${username}";
-      home-update = "home-manager switch --flake ~/nix-config#${username}";
     };
 
     plugins = [

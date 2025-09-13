@@ -87,34 +87,42 @@
             ./hosts/kvm/default/configuration.nix
           ];
         };
-        alice = lib.nixosSystem {
-          inherit system;
-          specialArgs = {
+        alice =
+          let
             username = "alice";
-          };
-          modules = [
-            ./hosts/kvm/default/configuration.nix
-            ./system/users/alice.nix
-            ./system/fonts.nix
-            ./system/hyprland.nix
-            ./system/fcitx5.nix
-            ./system/firefox.nix
-          ];
-        };
-      };
-      homeConfigurations = {
-        alice = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = {
+          in
+          lib.nixosSystem {
             inherit system;
-            inherit nixvim;
-            username = "alice";
+            specialArgs = {
+              inherit username;
+            };
+            modules = [
+              ./hosts/kvm/default/configuration.nix
+              ./system/users/alice.nix
+              ./system/fonts.nix
+              ./system/hyprland.nix
+              ./system/fcitx5.nix
+              ./system/firefox.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = false;
+                  useUserPackages = true;
+                  extraSpecialArgs = {
+                    inherit system;
+                    inherit nixvim;
+                    inherit username;
+                  };
+                  users.alice = {
+                    imports = [
+                      stylix.homeModules.stylix
+                      ./alice.nix
+                    ];
+                  };
+                };
+              }
+            ];
           };
-          modules = [
-            stylix.homeModules.stylix
-            ./alice.nix
-          ];
-        };
       };
     };
 }
