@@ -7,13 +7,11 @@
   "spacing": 4, // Gaps between modules (4px)
   // Choose the order of the modules
   "modules-left": [
-    "sway/workspaces",
-    "sway/mode",
-    "sway/scratchpad",
+    "hyprland/workspaces",
     "custom/media"
   ],
   "modules-center": [
-    "swap/window"
+    "hyprland/window"
   ],
   "modules-right": [
     "mpd",
@@ -26,7 +24,7 @@
     "temperature",
     "backlight",
     "keyboard-state",
-    "sway/language",
+    // "hyprland/language",
     "battery",
     "battery#bat2",
     "clock",
@@ -34,22 +32,36 @@
     "custom/power"
   ],
   // Modules configuration
-  // "sway/workspaces": {
-  //     "disable-scroll": true,
-  //     "all-outputs": true,
-  //     "warp-on-scroll": false,
-  //     "format": "{name}: {icon}",
-  //     "format-icons": {
-  //         "1": "",
-  //         "2": "",
-  //         "3": "",
-  //         "4": "",
-  //         "5": "",
-  //         "urgent": "",
-  //         "focused": "",
-  //         "default": ""
-  //     }
-  // },
+  "hyprland/workspaces": {
+    "format": "{icon} {windows}",
+    "on-scroll-up": "hyprctl dispatch workspace +1",
+    "on-scroll-down": "hyprctl dispatch workspace -1",
+    "on-click": "activate",
+    "window-rewrite-default": "",
+    "window-rewrite": {
+      "title<.*youtube.*>": "", // Windows whose titles contain "youtube"
+      "class<firefox>": "", // Windows whose classes are "firefox"
+      "class<firefox> title<.*github.*>": "", // Windows whose class is "firefox" and title contains "github"
+      "class<firefox> title<.*twitch|youtube.*>": "",
+      "class<google-chrome>": "",
+      "class<google-chrome> title<.*github.*>": "",
+      "class<google-chrome> title<.*twitch|youtube.*>": "",
+      "class<Alacritty>": "",
+      "class<kitty>": "",
+      "class<org.kde.konsole>": "",
+      "code": "",
+      "class<thunderbird>": "",
+      "class<vlc>": "",
+      "class<thunar>": "",
+      "class<org.gnome.Nautilus>": "",
+      "class<org.kde.dolphin>": "",
+      "class<org.kde.kate>": "",
+      "class<libreoffice-draw>": "",
+      "class<libreoffice-writer>": "",
+      "class<libreoffice-calc>": "",
+      "class<libreoffice-impress>": ""
+    }
+  },
   "keyboard-state": {
     "numlock": true,
     "capslock": true,
