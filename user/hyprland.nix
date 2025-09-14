@@ -6,13 +6,13 @@
     source = ./waybar;
     recursive = true;
   };
+  home.file.".config/walker" = {
+    source = ./walker;
+    recursive = true;
+  };
   home.packages = [
     pkgs.nautilus
     pkgs.waybar
+    pkgs.walker
   ];
-
-  services.walker = {
-    enable = true;
-    systemd.enable = true;
-  };
 }
