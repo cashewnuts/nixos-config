@@ -25,8 +25,8 @@
     "backlight",
     "keyboard-state",
     // "hyprland/language",
-    "battery",
-    "battery#bat2",
+    // "battery",
+    // "battery#bat2",
     "clock",
     "tray",
     "custom/power"
@@ -59,7 +59,9 @@
       "class<libreoffice-draw>": "",
       "class<libreoffice-writer>": "",
       "class<libreoffice-calc>": "",
-      "class<libreoffice-impress>": ""
+      "class<libreoffice-impress>": "",
+      "class<obsidian>": "",
+      "class<fcitx.*>": ""
     }
   },
   "keyboard-state": {
@@ -126,7 +128,8 @@
     // }
   },
   "clock": {
-    // "timezone": "America/New_York",
+    "timezone": "Asia/Tokyo",
+    "format": "{:%H:%M %a}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "format-alt": "{:%Y-%m-%d}"
   },
