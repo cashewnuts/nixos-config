@@ -49,7 +49,7 @@
               inherit username;
             };
             modules = [
-              ./hosts/iso/configuration.nix
+              ./hosts/iso/user/configuration.nix
               ./system/fonts.nix
               ./system/hyprland.nix
               ./system/fcitx5.nix
