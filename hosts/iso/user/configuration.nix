@@ -47,9 +47,21 @@
     # Include some editors.
     vim
     nano
+
+    rsync
+    file
   ];
+
+  programs.git.enable = lib.mkDefault true;
+
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    allowed-users = [ username ];
+  };
 
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }

@@ -7,8 +7,6 @@
   pkgs,
   options,
   modulesPath,
-  username,
-  fileSystems,
   ...
 }:
 
@@ -46,29 +44,4 @@
   swapDevices = lib.mkImageMediaOverride [ ];
   fileSystems = lib.mkImageMediaOverride config.lib.isoFileSystems;
   boot.initrd.luks.devices = lib.mkImageMediaOverride { };
-
-  boot.postBootCommands = ''
-    for o in $(</proc/cmdline); do
-      case "$o" in
-        live.nixos.passwd=*)
-          set -- $(IFS==; echo $o)
-          echo "nixos:$2" | ${pkgs.shadow}/bin/chpasswd
-          ;;
-      esac
-    done
-  '';
-
-  environment.defaultPackages = with pkgs; [
-    rsync
-  ];
-
-  programs.git.enable = lib.mkDefault true;
-
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    allowed-users = [ username ];
-  };
 }
