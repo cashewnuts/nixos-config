@@ -1,8 +1,11 @@
 setup /mnt/data
 
-```bash
+```bash { "name": "mount-data" }
+export TARGET="/dev/disk/by-uuid/c975cdfa-0bfd-4e42-a5fe-c00b2292d88a"
 # open
-sudo systemd-cryptsetup attach store-data /dev/disk/by-uuid/c975cdfa-0bfd-4e42-a5fe-c00b2292d88a
+sudo systemd-cryptsetup attach store-data $TARGET
+# make dir
+sudo mkdir -p /mnt/data
 # using systemd
 sudo systemctl start /mnt/data
 # using manual mount
@@ -11,7 +14,7 @@ sudo mount -t ext4 /dev/mapper/store-data /mnt/data
 
 clean up /mnt/data
 
-```bash
+```bash { "name": "umount-data" }
 # using systemd
 sudo systemctl stop /mnt/data
 # using manual umount

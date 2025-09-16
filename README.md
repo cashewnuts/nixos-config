@@ -14,31 +14,41 @@ nix-channel --add https://github.com/nix-community/home-manager/archive/release-
   && nix-channel --update \
   && nix-shell '<home-manager>' -A install
 home-manager switch --flake ~/nix-config
-
-# Setup fcitx for mozc
-fcitx-configtool
-# Generate walker config
-walker -C
 ```
 
 ## Basic commands
 
-```bash
-# Rebuild OS level config with ~/nix-config
-sudo nixos-rebuild switch --flake ~/nix-config
-# Update home-manager
-home-manager switch --flake ~/nix-config
+### Rebuild OS level config with ~/nix-config
 
-# Remove all generation
+```bash { "name": "update" }
+sudo nixos-rebuild switch --flake ~/nix-config
+```
+
+### Remove all generation
+
+```bash { "name": "remove-all-generations" }
 sudo nix-collect-garbage -d
-# Remove generation with period
+```
+
+### Remove generation with period
+
+```bash { "name": "remove-3days-generations" }
 sudo nix-collect-garbage --delete-older-than 3d
-# Expire home manager generation with days
-home-manager expire-generations "-3 days"
+```
+
+```bash { "name": "remove-1days-generations" }
+sudo nix-collect-garbage --delete-older-than 1d
 ```
 
 ## build iso
 
-```bash
+```bash { "name": "build_iso" }
 nix build ~/nix-config#build_iso
+```
+
+## miscellaneous
+
+```bash { "name": "echo" }
+export MSG="helloworld"
+sudo echo $MSG
 ```
