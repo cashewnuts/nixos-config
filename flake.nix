@@ -75,6 +75,14 @@
             ];
             format = "iso";
           };
+        build_installer = inputs.nixos-generators.nixosGenerate {
+          inherit system;
+          modules = [
+            ./hosts/iso/installer/configuration.nix
+            ./pkgs/nix-config-repo.nix
+          ];
+          format = "iso";
+        };
       };
       nixosConfigurations = {
         nixos = lib.nixosSystem {

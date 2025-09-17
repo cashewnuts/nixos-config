@@ -46,6 +46,12 @@ sudo nix-collect-garbage --delete-older-than 1d
 nix build ~/nix-config#build_iso
 ```
 
+## build installer
+
+```bash { "name": "build_installer" }
+nix build ~/nix-config#build_installer
+```
+
 ## miscellaneous
 
 ```bash { "name": "echo" }
