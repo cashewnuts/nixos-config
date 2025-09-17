@@ -75,7 +75,7 @@ sudo swapon "${DEVICE}2"
 ## Install
 
 ```bash { "name": "install", "interactive": true  }
-export FLAKE="./nix-config/flake.nix#alice"
+export FLAKE="./nixos-config/flake.nix#alice"
 
 sudo nixos-install --root /mnt --flake ${FLAKE}
 ```
@@ -91,5 +91,5 @@ sudo nixos-enter --root /mnt -c "$COMMAND"
 ```bash { "name": "git-clone", "interactive": true  }
 export USER="alice"
 
-git clone https://github.com/cashewnuts/nixos-config.git "/mnt/home/${USER}/nix-config"
+git clone https://github.com/cashewnuts/nixos-config.git "/mnt/home/${USER}/nixos-config"
 ```

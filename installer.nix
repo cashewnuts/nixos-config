@@ -25,7 +25,7 @@
     "README.md" = {
       source = ./docs/installer.md;
     };
-    "nix-config" = {
+    "nixos-config" = {
       source = ./.;
       recursive = true;
     };
