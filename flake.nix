@@ -54,6 +54,7 @@
               ./system/hyprland.nix
               ./system/fcitx5.nix
               ./system/firefox.nix
+              ./system/stub-ld.nix
               home-manager.nixosModules.home-manager
               {
                 home-manager = {
@@ -126,6 +127,7 @@
               ./system/hyprland.nix
               ./system/fcitx5.nix
               ./system/firefox.nix
+              ./system/stub-ld.nix
               home-manager.nixosModules.home-manager
               {
                 home-manager = {
