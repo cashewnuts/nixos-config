@@ -75,14 +75,33 @@
             ];
             format = "iso";
           };
-        build_installer = inputs.nixos-generators.nixosGenerate {
-          inherit system;
-          modules = [
-            ./hosts/iso/installer/configuration.nix
-            ./pkgs/nix-config-repo.nix
-          ];
-          format = "iso";
-        };
+        build_installer =
+          let
+            username = "nixos";
+          in
+          inputs.nixos-generators.nixosGenerate {
+            inherit system;
+            modules = [
+              ./hosts/iso/installer/configuration.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = false;
+                  useUserPackages = true;
+                  extraSpecialArgs = {
+                    inherit system;
+                    inherit username;
+                  };
+                  users.${username} = {
+                    imports = [
+                      ./installer.nix
+                    ];
+                  };
+                };
+              }
+            ];
+            format = "iso";
+          };
       };
       nixosConfigurations = {
         nixos = lib.nixosSystem {

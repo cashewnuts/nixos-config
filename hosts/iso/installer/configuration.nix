@@ -23,8 +23,6 @@
     # Include some editors.
     vim
     nano
-
-    runme
   ];
 
   nix.settings = {

@@ -58,3 +58,7 @@ nix build ~/nix-config#build_installer
 export MSG="helloworld"
 sudo echo $MSG
 ```
+
+```bash { "cwd": "..", "name": "cwd" }
+pwd
+```
