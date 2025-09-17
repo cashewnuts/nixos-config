@@ -21,7 +21,9 @@ sudo mkswap -L swap "${DEVICE}2"
 sudo mkfs.fat -F 32 -n boot "${DEVICE}3"
 ```
 
-## Install
+## Disk setup
+
+### Normal setup
 
 ```bash { "name": "mount", "interactive": true  }
 export DEVICE="/dev/vda"
@@ -34,18 +36,56 @@ sudo mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
 sudo swapon "${DEVICE}2"
 ```
 
+```bash { "name": "mount", "interactive": true  }
+export DEVICE="/dev/vda"
+
+sudo mount /dev/disk/by-label/nixos /mnt
+
+sudo mkdir -p /mnt/boot
+sudo mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
+
+sudo swapon "${DEVICE}2"
+```
+
+### LUKS setup
+
+```bash { "name": "format-luks", "tag": ["luks"], "interactive": true  }
+export DEVICE="/dev/vda"
+
+sudo cryptsetup luksFormat "${DEVICE}1"
+sudo systemd-cryptenroll --fido2-device=auto --fido2-with-client-pin=false --wipe-slot=1 "${DEVICE}1"
+sudo systemd-cryptsetup attach root "${DEVICE}1" none fido2-device=auto
+sudo mkfs.ext4 /dev/mapper/root
+
+sudo mkswap -L swap "${DEVICE}2"
+sudo mkfs.fat -F 32 -n boot "${DEVICE}3"
+```
+
+```bash { "name": "mount-luks", "tag": ["luks"], "interactive": true  }
+export DEVICE="/dev/vda"
+
+sudo mount /dev/mapper/root /mnt
+
+sudo mkdir -p /mnt/boot
+sudo mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
+
+sudo swapon "${DEVICE}2"
+```
+
+## Install
+
 ```bash { "name": "install", "interactive": true  }
 export FLAKE="./nix-config/flake.nix#alice"
 
-sudo nixos-install --root /mnt --flake ./flake.nix#${USER}
+sudo nixos-install --root /mnt --flake ${FLAKE}
 ```
 
 ## Setup user
 
 ```bash { "name": "user-passwd", "interactive": true  }
-export USER="alice"
+export COMMAND="passwd alice"
 
-sudo nixos-enter --root /mnt -c "passwd $USER"
+sudo nixos-enter --root /mnt -c "$COMMAND"
 ```
 
 ```bash { "name": "git-clone", "interactive": true  }

@@ -25,9 +25,16 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+  boot.initrd = {
+    luks.devices.root = {
+      crypttabExtraOpts = [ "fido2-device=auto" ];
+      device = "/dev/disk/by-partlabel/root";
+    };
+    systemd.enable = true;
+  };
 
   fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
+    device = "/dev/mapper/root";
     fsType = "ext4";
   };
 

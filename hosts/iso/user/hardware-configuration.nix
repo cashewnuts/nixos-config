@@ -16,6 +16,8 @@
     (modulesPath + "/profiles/base.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.extraModulePackages = [ ];
 
   hardware.enableAllHardware = true;
 

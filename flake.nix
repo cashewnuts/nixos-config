@@ -121,7 +121,7 @@
               inherit username;
             };
             modules = [
-              ./hosts/kvm/default/configuration.nix
+              ./hosts/kvm/luks/configuration.nix
               ./system/users/alice.nix
               ./system/fonts.nix
               ./system/hyprland.nix
