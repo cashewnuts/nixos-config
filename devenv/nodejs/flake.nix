@@ -1,0 +1,33 @@
+{
+  description = "Nodejs development environment";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (
+      system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+        };
+      in
+      {
+        devShells = with pkgs; rec {
+          default = mkShell {
+            buildInputs = [ nodejs ];
+          };
+          node24 = mkShell {
+            buildInputs = [ nodejs_24 ];
+          };
+        };
+      }
+    );
+}

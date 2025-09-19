@@ -55,6 +55,7 @@
               ./system/fcitx5.nix
               ./system/firefox.nix
               ./system/stub-ld.nix
+              ./system/appimage.nix
               home-manager.nixosModules.home-manager
               {
                 home-manager = {
@@ -128,6 +129,7 @@
               ./system/fcitx5.nix
               ./system/firefox.nix
               ./system/stub-ld.nix
+              ./system/appimage.nix
               home-manager.nixosModules.home-manager
               {
                 home-manager = {
