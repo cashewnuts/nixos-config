@@ -48,8 +48,8 @@
     ];
   };
 
-  fileSystems."/home/${username}/projects" = {
-    device = "projects";
+  fileSystems."/mnt/share" = {
+    device = "share";
     fsType = "virtiofs";
     options = [
       "defaults"

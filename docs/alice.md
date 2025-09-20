@@ -10,6 +10,14 @@ sudo mkdir -p /mnt/data
 sudo mount -t ext4 /dev/mapper/store-data /mnt/data
 ```
 
+```bash { "name": "mount-share" }
+export TARGET="share"
+# make dir
+sudo mkdir -p /mnt/share
+# using manual mount
+sudo mount -t virtiofs $TARGET /mnt/share
+```
+
 clean up /mnt/data
 
 ```bash { "name": "umount-data" }
