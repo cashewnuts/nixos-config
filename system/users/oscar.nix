@@ -38,6 +38,16 @@
     ];
   };
 
+  fileSystems."/home/${username}/.aws" = {
+    device = "user_aws";
+    fsType = "virtiofs";
+    options = [
+      "defaults"
+      "users"
+      "nofail"
+    ];
+  };
+
   fileSystems."/mnt/share" = {
     device = "share";
     fsType = "virtiofs";
