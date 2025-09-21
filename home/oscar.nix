@@ -9,13 +9,13 @@
 {
 
   imports = [
-    ./user/zsh.nix
-    ./user/hyprland.nix
-    ./user/fcitx5.nix
-    ./user/firefox.nix
-    ./user/devenv.nix
-    ./user/neovim.nix
-    ./user/stylix.nix
+    ../user/zsh.nix
+    ../user/hyprland.nix
+    ../user/fcitx5.nix
+    ../user/firefox.nix
+    ../user/devenv.nix
+    ../user/neovim.nix
+    ../user/stylix.nix
   ];
 
   # due to home-manager/stylix bug add this line
@@ -76,7 +76,7 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
     "README.md" = {
-      source = ./docs/alice.md;
+      source = ../docs/oscar.md;
     };
   };
 
@@ -102,6 +102,6 @@
   programs.git = {
     enable = true;
     userName = username;
-    userEmail = "cashewnuts903+${username}@gmail.com";
+    userEmail = "cashewnuts903+oscar@gmail.com";
   };
 }

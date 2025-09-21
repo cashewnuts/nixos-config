@@ -69,7 +69,7 @@
                   users.alice = {
                     imports = [
                       stylix.homeModules.stylix
-                      ./alice.nix
+                      ./home/alice.nix
                     ];
                   };
                 };
@@ -96,7 +96,7 @@
                   };
                   users.${username} = {
                     imports = [
-                      ./installer.nix
+                      ./home/installer.nix
                     ];
                   };
                 };
@@ -140,10 +140,84 @@
                     inherit nixvim;
                     inherit username;
                   };
-                  users.alice = {
+                  users.${username} = {
                     imports = [
                       stylix.homeModules.stylix
-                      ./alice.nix
+                      ./home/alice.nix
+                    ];
+                  };
+                };
+              }
+            ];
+          };
+        oscar =
+          let
+            username = "oscar";
+          in
+          lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit username;
+            };
+            modules = [
+              ./hosts/kvm/luks/configuration.nix
+              ./system/users/oscar.nix
+              ./system/fonts.nix
+              ./system/hyprland.nix
+              ./system/fcitx5.nix
+              ./system/firefox.nix
+              ./system/appimage.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = false;
+                  useUserPackages = true;
+                  extraSpecialArgs = {
+                    inherit system;
+                    inherit nixvim;
+                    inherit username;
+                  };
+                  users.${username} = {
+                    imports = [
+                      stylix.homeModules.stylix
+                      ./home/oscar.nix
+                    ];
+                  };
+                };
+              }
+            ];
+          };
+        ted =
+          let
+            username = "ted";
+          in
+          lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit username;
+            };
+            modules = [
+              ./hosts/kvm/luks/configuration.nix
+              ./system/users/ted.nix
+              ./system/fonts.nix
+              ./system/hyprland.nix
+              ./system/fcitx5.nix
+              ./system/firefox.nix
+              ./system/appimage.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = false;
+                  useUserPackages = true;
+                  extraSpecialArgs = {
+                    inherit system;
+                    inherit nixvim;
+                    inherit username;
+                  };
+                  users.${username} = {
+                    imports = [
+                      stylix.homeModules.stylix
+                      ./home/ted.nix
                     ];
                   };
                 };
