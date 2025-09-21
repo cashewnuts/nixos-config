@@ -24,6 +24,9 @@
           default = mkShell {
             buildInputs = [ nodejs ];
           };
+          node22 = mkShell {
+            buildInputs = [ nodejs_22 ];
+          };
           node24 = mkShell {
             buildInputs = [ nodejs_24 ];
           };
