@@ -27,7 +27,10 @@
   boot.extraModulePackages = [ ];
   boot.initrd = {
     luks.devices.root = {
-      crypttabExtraOpts = [ "fido2-device=auto" ];
+      crypttabExtraOpts = [
+        "discard"
+        "fido2-device=auto"
+      ];
       device = "/dev/disk/by-partlabel/root";
     };
     systemd.enable = true;
@@ -36,6 +39,11 @@
   fileSystems."/" = {
     device = "/dev/mapper/root";
     fsType = "ext4";
+    options = [
+      "defaults"
+      "discard"
+      "noatime"
+    ];
   };
 
   fileSystems."/boot" = {
