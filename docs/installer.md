@@ -13,27 +13,16 @@ sudo parted $DEVICE -- mkpart ESP fat32 1MB 512MB
 sudo parted $DEVICE -- set 3 esp on
 ```
 
+## Disk setup
+
+### Normal setup
+
 ```bash { "name": "format", "interactive": true  }
 export DEVICE="/dev/vda"
 
 sudo mkfs.ext4 -L nixos "${DEVICE}1"
 sudo mkswap -L swap "${DEVICE}2"
 sudo mkfs.fat -F 32 -n boot "${DEVICE}3"
-```
-
-## Disk setup
-
-### Normal setup
-
-```bash { "name": "mount", "interactive": true  }
-export DEVICE="/dev/vda"
-
-sudo mount /dev/disk/by-label/nixos /mnt
-
-sudo mkdir -p /mnt/boot
-sudo mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
-
-sudo swapon "${DEVICE}2"
 ```
 
 ```bash { "name": "mount", "interactive": true  }
@@ -49,11 +38,29 @@ sudo swapon "${DEVICE}2"
 
 ### LUKS setup
 
-```bash { "name": "format-luks", "tag": ["luks"], "interactive": true  }
+```bash { "name": "crypt-format", "tag": ["luks"], "interactive": true  }
 export DEVICE="/dev/vda"
 
 sudo cryptsetup luksFormat "${DEVICE}1"
-sudo systemd-cryptenroll --fido2-device=auto --fido2-with-client-pin=false --wipe-slot=1 "${DEVICE}1"
+```
+
+```bash { "name": "crypt-enroll", "tag": ["luks"], "interactive": true  }
+export DEVICE="/dev/vda"
+export REQUIRE_PIN="false"
+
+sudo systemd-cryptenroll --fido2-device=auto --fido2-with-client-pin=$REQUIRE_PIN "${DEVICE}1"
+```
+
+```bash { "name": "crypt-enroll-wipe", "tag": ["luks"], "interactive": true  }
+export DEVICE="/dev/vda"
+export REQUIRE_PIN="false"
+
+sudo systemd-cryptenroll --fido2-device=auto --fido2-with-client-pin=$REQUIRE_PIN --wipe-slot=0 "${DEVICE}1"
+```
+
+```bash { "name": "format-luks", "tag": ["luks"], "interactive": true  }
+export DEVICE="/dev/vda"
+
 sudo systemd-cryptsetup attach root "${DEVICE}1" none fido2-device=auto
 sudo mkfs.ext4 /dev/mapper/root
 
