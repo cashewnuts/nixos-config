@@ -21,7 +21,21 @@
       nixvim,
       ...
     }:
-    flake-utils.lib.eachDefaultSystem (
+    let
+      lib = nixpkgs.lib;
+      system = "x86_64-linux";
+    in
+    {
+      nixosConfigurations = {
+        debian = lib.nixosSystem {
+          inherit system;
+          modules = [
+            ../system/fonts.nix
+          ];
+        };
+      };
+    }
+    // flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = import nixpkgs { inherit system; };

@@ -6,7 +6,14 @@ Setup memo
 # apt install \
   vim \
   neovim \
+  zsh \
   git
+```
+
+## user management
+
+```
+# useradd -m -s /bin/zsh ${username}
 ```
 
 ## ssh setup
