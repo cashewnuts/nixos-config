@@ -74,7 +74,7 @@ restart ssh service
 - add temporary $PATH
 
 ```
-$ git clone https://github.com/cashewnuts/nixos-config
+$ git clone git@github.com:cashewnuts/nixos-config
 ```
 
 ```
