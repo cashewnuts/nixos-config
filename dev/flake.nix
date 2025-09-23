@@ -43,6 +43,22 @@
                   ../home/alice.dev.nix
                 ];
               };
+            oscar =
+              let
+                username = "oscar";
+              in
+              home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
+
+                extraSpecialArgs = {
+                  inherit system;
+                  inherit nixvim;
+                  inherit username;
+                };
+                modules = [
+                  ../home/oscar.dev.nix
+                ];
+              };
           };
         };
       }
