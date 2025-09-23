@@ -88,7 +88,8 @@
   #  /etc/profiles/per-user/alice/etc/profile.d/hm-session-vars.sh
   #
   # Let Home Manager install and manage itself.
-  # programs.home-manager.enable = true;
+  programs.home-manager.enable = true;
+
   programs.zsh.shellAliases = {
     home-update = "home-manager switch --flake ~/nixos-config/dev";
   };
