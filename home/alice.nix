@@ -3,7 +3,6 @@
   system,
   username,
   pkgs,
-  nixvim,
   ...
 }:
 {

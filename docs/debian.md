@@ -58,6 +58,7 @@ restart ssh service
 - clone nixos-config
 - add nixpkgs channel
 - install home-manager
+- enable experimental-features
 - add temporary $PATH
 
 ```
@@ -75,6 +76,11 @@ $ nix-shell '<home-manager>' -A install
 ```
 
 ```
-export PATH="$HOME/.nix-profile/bin:$PATH"
+$ mkdir -p ~/.config/nix
+$ echo ~/.config/nix/nix.conf
+experimental-features = nix-command flakes
 ```
 
+```
+export PATH="$HOME/.nix-profile/bin:$PATH"
+```
