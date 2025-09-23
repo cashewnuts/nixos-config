@@ -41,7 +41,7 @@
                   inherit username;
                 };
                 modules = [
-                  ./home/alice.dev.nix
+                  ../home/alice.dev.nix
                 ];
               };
           };

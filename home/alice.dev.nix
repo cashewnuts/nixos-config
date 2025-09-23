@@ -93,6 +93,10 @@
     home-update = "home-manager switch --flake ~/nixos-config/dev";
   };
 
+  home.sessionPath = [
+    "$HOME/.nix-profile/bin"
+  ];
+
   programs.git = {
     enable = true;
     userName = username;
