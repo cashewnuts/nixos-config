@@ -1,11 +1,13 @@
 {
   config,
   system,
-  username,
   pkgs,
   nixvim,
   ...
 }:
+let
+  username = "alice";
+in
 {
 
   imports = [
