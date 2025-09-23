@@ -78,11 +78,11 @@ $ git clone https://github.com/cashewnuts/nixos-config
 ```
 
 ```
-$ nix-channel --add https://nixos.org/channels/nixos-25.05 nixpkgs && nix-channel --update
+$ nix-channel --add https://nixos.org/channels/nixos-unstable nixpkgs && nix-channel --update
 ```
 
 ```
-$ nix-channel --add https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz home-manager
+$ nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 $ nix-channel --update
 $ nix-shell '<home-manager>' -A install
 ```
