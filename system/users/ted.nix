@@ -28,16 +28,6 @@
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
 
-  fileSystems."/home/${username}/.ssh" = {
-    device = "user_ssh";
-    fsType = "virtiofs";
-    options = [
-      "defaults"
-      "users"
-      "nofail"
-    ];
-  };
-
   fileSystems."/home/${username}/.aws" = {
     device = "user_aws";
     fsType = "virtiofs";

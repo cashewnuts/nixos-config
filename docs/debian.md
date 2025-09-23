@@ -7,7 +7,11 @@ Setup memo
   vim \
   neovim \
   zsh \
-  git
+  git \
+  kitty-terminfo \
+  fzf \
+  fd-find \
+  ripgrep
 ```
 
 ## user management
@@ -42,6 +46,7 @@ $ ssh-copy-id [username]@debian.qxyz.vm
 $ echo /etc/ssh/sshd_config
 ...
 PasswordAuthentication no
+KdbInteractiveAuthentication no
 ```
 
 restart ssh service

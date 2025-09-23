@@ -1,6 +1,20 @@
 # Basic User: Alice
 
-setup /mnt/data
+## ssh setup
+
+```bash { "name": "ssh-keygen" }
+export EMAIL="cashewnuts903+alice@gmail.com"
+
+ssh-keygen -t ed25519 -C $EMAIL
+```
+
+```bash { "name": "ssh-add" }
+export KEY_FILE="$HOME/.ssh/id_ed25519"
+
+ssh-add $KEY_FILE
+```
+
+## setup /mnt/data
 
 ```bash { "name": "mount-data" }
 export TARGET="/dev/disk/by-uuid/c975cdfa-0bfd-4e42-a5fe-c00b2292d88a"
