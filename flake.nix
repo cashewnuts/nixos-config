@@ -225,24 +225,5 @@
             ];
           };
       };
-      legacyPackages = {
-        homeConfigurations = {
-          alice.dev =
-            let
-              username = "alice";
-            in
-            home-manager.lib.homeManagerConfiguration {
-              pkgs = import nixpkgs { inherit system; };
-              extraSpecialArgs = {
-                inherit system;
-                inherit nixvim;
-                inherit username;
-              };
-              modules = [
-                ./home/alice.dev.nix
-              ];
-            };
-        };
-      };
     };
 }

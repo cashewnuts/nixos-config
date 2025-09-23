@@ -90,7 +90,7 @@
   # Let Home Manager install and manage itself.
   # programs.home-manager.enable = true;
   programs.zsh.shellAliases = {
-    home-update = "home-manager switch -f ~/nixos-config/home/alice.dev.nix";
+    home-update = "home-manager switch --flake ~/nixos-config/dev";
   };
 
   programs.git = {
