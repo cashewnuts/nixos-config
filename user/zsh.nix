@@ -16,6 +16,12 @@
       kssh = "kitten ssh";
     };
 
+    initExtra = ''
+      if [[ -f "$HOME/.zsh_custom" ]]; then
+        source "$HOME/.zsh_custom" 
+      fi
+    '';
+
     plugins = [
       {
         name = "powerlevel10k";

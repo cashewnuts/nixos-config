@@ -35,6 +35,7 @@
     # pkgs.hello
     pkgs.gitui
     pkgs.runme
+    pkgs.nodenv
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -87,8 +88,10 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  programs.zsh.shellAliases = {
-    home-update = "home-manager switch --flake ~/nixos-config/dev";
+  programs.zsh = {
+    shellAliases = {
+      home-update = "home-manager switch --flake ~/nixos-config/dev";
+    };
   };
 
   home.sessionPath = [

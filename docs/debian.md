@@ -96,3 +96,17 @@ experimental-features = nix-command flakes
 ```
 export PATH="$HOME/.nix-profile/bin:$PATH"
 ```
+
+## Install for tauri
+
+```
+# apt install libwebkit2gtk-4.1-dev \
+  build-essential \
+  curl \
+  wget \
+  file \
+  libxdo-dev \
+  libssl-dev \
+  libayatana-appindicator3-dev \
+  librsvg2-dev
+```
