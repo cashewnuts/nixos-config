@@ -13,3 +13,9 @@ export KEY_FILE="$HOME/.ssh/id_ed25519"
 
 ssh-add $KEY_FILE
 ```
+
+## aws
+
+```bash { "name": "aws-sso-harvet2-dev" }
+aws sso login --profile harvet2-dev
+```
