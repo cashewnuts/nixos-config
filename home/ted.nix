@@ -15,6 +15,7 @@
     ../user/firefox.nix
     ../user/devenv.nix
     ../user/neovim.nix
+    ../user/ssh.nix
     ../user/stylix.nix
   ];
 
