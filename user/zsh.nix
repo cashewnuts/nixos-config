@@ -16,7 +16,7 @@
       kssh = "kitten ssh";
     };
 
-    initExtra = ''
+    initContent = ''
       if [[ -f "$HOME/.zsh_custom" ]]; then
         source "$HOME/.zsh_custom" 
       fi
