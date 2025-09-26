@@ -14,4 +14,6 @@
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
   ];
+
+  services.lvm.boot.thin.enable = true;
 }
