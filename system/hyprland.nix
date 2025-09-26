@@ -7,11 +7,11 @@
 }:
 
 {
-  services.xserver.displayManager.gdm = {
-    enable = true;
-    wayland = true;
-  };
   services.displayManager = {
+    gdm = {
+      enable = true;
+      wayland = true;
+    };
     autoLogin = {
       enable = true;
       user = username;

@@ -2,7 +2,7 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       # due to stylix error cannot use 25.05
       # url = "github:nix-community/home-manager/release-25.05";
@@ -111,6 +111,49 @@
             ./hosts/kvm/default/configuration.nix
           ];
         };
+        main =
+          let
+            hostName = "main";
+            username = "steav";
+          in
+          lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit hostName;
+              inherit username;
+            };
+            modules = [
+              ./hosts/metal/configuration.nix
+              ./system/users/steav.nix
+              ./system/fonts.nix
+              ./system/hyprland.nix
+              ./system/fcitx5.nix
+              ./system/firefox.nix
+              ./system/stub-ld.nix
+              ./system/appimage.nix
+              ./system/libvirt.nix
+              ./system/networkmanager.nix
+              ./system/game.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = false;
+                  useUserPackages = true;
+                  extraSpecialArgs = {
+                    inherit system;
+                    inherit nixvim;
+                    inherit username;
+                  };
+                  users.${username} = {
+                    imports = [
+                      stylix.homeModules.stylix
+                      ./home/steav.nix
+                    ];
+                  };
+                };
+              }
+            ];
+          };
         alice =
           let
             username = "alice";
