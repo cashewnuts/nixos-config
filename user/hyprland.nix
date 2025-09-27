@@ -20,5 +20,23 @@
     pkgs.waybar
     pkgs.walker
   ];
-  services.hyprpolkitagent.enable = true;
+  services = {
+    hyprpaper = {
+      enable = true;
+      settings = {
+        ipc = "on";
+        splash = false;
+        splash_offset = 2.0;
+
+        preload = [
+          "$HOME/wallpaper.webp"
+        ];
+
+        wallpaper = [
+          ", $HOME/wallpaper.webp"
+        ];
+      };
+    };
+    hyprpolkitagent.enable = true;
+  };
 }
