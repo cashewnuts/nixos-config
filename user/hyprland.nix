@@ -20,4 +20,5 @@
     pkgs.waybar
     pkgs.walker
   ];
+  services.hyprpolkitagent.enable = true;
 }
