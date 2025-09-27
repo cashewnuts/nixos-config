@@ -105,4 +105,10 @@
     userName = username;
     userEmail = "cashewnuts903@gmail.com";
   };
+
+  programs.zsh = {
+    shellAliases = {
+      vv = "virt-viewer --hotkeys=toggle-fullscreen=shift+f11 -a -d --connect qemu:///system";
+    };
+  };
 }
