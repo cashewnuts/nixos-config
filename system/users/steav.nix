@@ -33,25 +33,21 @@
     fsType = "btrfs";
     options = [
       "defaults"
-      "users"
       "compress=zstd"
       "rw"
-      "user"
       "exec"
       "nofail"
     ];
   };
 
-  fileSystems."/home/${username}/.local/share/Steam" = {
+  fileSystems."/home/${username}/.var/app/com.valvesoftware.Steam/data/Steam" = {
     device = "/dev/mapper/vg01-store--var";
     fsType = "btrfs";
     options = [
       "defaults"
-      "users"
       "compress=zstd"
       "subvol=home/user/steam"
       "rw"
-      "user"
       "exec"
       "nofail"
     ];
@@ -62,11 +58,9 @@
     fsType = "btrfs";
     options = [
       "defaults"
-      "users"
       "compress=zstd"
       "subvol=home/user/heroic_games_launcher"
       "rw"
-      "user"
       "exec"
       "nofail"
     ];

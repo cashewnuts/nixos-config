@@ -38,6 +38,8 @@
         enable = true;
         profileNames = [ "default" ];
       };
+      gtk.enable = true;
+      gtk.flatpakSupport.enable = false;
     };
   };
 }

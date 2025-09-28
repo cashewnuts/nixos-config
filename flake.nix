@@ -131,6 +131,7 @@
               ./system/firefox.nix
               ./system/stub-ld.nix
               ./system/appimage.nix
+              ./system/flatpak.nix
               ./system/libvirt.nix
               ./system/networkmanager.nix
               ./system/game.nix
@@ -235,6 +236,7 @@
           in
           lib.nixosSystem {
             inherit system;
+            inherit pkgs;
             specialArgs = {
               inherit username;
             };

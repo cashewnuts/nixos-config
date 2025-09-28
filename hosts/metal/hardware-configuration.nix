@@ -10,10 +10,12 @@
 }:
 
 {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+  imports = [ ];
 
+  hardware.enableRedistributableFirmware = true;
+
+  boot.hardwareScan = true;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.initrd.availableKernelModules = [
     "nvme"
     "ahci"
@@ -22,9 +24,13 @@
     "usb_storage"
     "sd_mod"
   ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.initrd.kernelModules = [
+    "dm-snapshot"
+    "amdgpu"
+  ];
+  boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [ ];
 
   services.lvm.boot.thin.enable = true;
 
@@ -65,12 +71,17 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   # AMD_GPU https://nixos.wiki/wiki/AMD_GPU
-  systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-  ];
-  hardware.graphics.extraPackages = with pkgs; [
-    rocmPackages.clr.icd
-    clinfo
-    amdvlk
-  ];
+  hardware = {
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+
+    };
+    amdgpu.amdvlk = {
+      enable = true;
+      support32Bit.enable = true;
+    };
+  };
+
+  services.lact.enable = true;
 }
