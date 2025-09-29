@@ -6,7 +6,8 @@
 }:
 
 {
-  home.file.".config/hypr/hyprland.conf".source = ./hyprland/${username}.conf;
+  home.file.".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
+  home.file.".config/hypr/hyprland_custom.conf".source = ./hyprland/${username}.conf;
   home.file.".config/waybar" = {
     source = ./waybar;
     recursive = true;
