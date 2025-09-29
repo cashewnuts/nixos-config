@@ -15,10 +15,15 @@
     source = ./walker;
     recursive = true;
   };
+  home.file.".config/hypr/hypridle.conf".source = ./hypridle/hypridle.conf;
+  home.file.".config/hypr/hyprlock.conf".source = ./hyprlock/hyprlock.conf;
   home.packages = [
     pkgs.nautilus
     pkgs.waybar
     pkgs.walker
+    pkgs.hypridle
+    pkgs.hyprlock
+    pkgs.brightnessctl
   ];
   services = {
     hyprpaper = {
