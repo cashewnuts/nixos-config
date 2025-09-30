@@ -12,6 +12,10 @@
     source = ./waybar;
     recursive = true;
   };
+  home.file.".config/waybar/style.css".text = ''
+    @import url("file://${./waybar/base.css}");
+    @import url("file://${./waybar/${username}.css}");
+  '';
   home.file.".config/walker" = {
     source = ./walker;
     recursive = true;
