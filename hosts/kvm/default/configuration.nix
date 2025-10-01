@@ -43,6 +43,7 @@
   # services.xserver.enable = true;
 
   services.qemuGuest.enable = true;
+  services.spice-vdagentd.enable = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
