@@ -37,6 +37,10 @@
   fileSystems."/" = {
     device = "/dev/mapper/root";
     fsType = "ext4";
+    options = [
+      "discard"
+      "noatime"
+    ];
   };
 
   boot.initrd.luks.devices."root" = {
@@ -51,6 +55,7 @@
     options = [
       "fmask=0077"
       "dmask=0077"
+      "noatime"
     ];
   };
 
@@ -75,12 +80,12 @@
     graphics = {
       enable = true;
       enable32Bit = true;
-
     };
     amdgpu.amdvlk = {
       enable = true;
       support32Bit.enable = true;
     };
+    uinput.enable = true;
   };
 
   services.lact.enable = true;

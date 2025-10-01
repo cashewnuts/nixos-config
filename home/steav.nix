@@ -108,7 +108,7 @@
 
   programs.zsh = {
     shellAliases = {
-      vv = "virt-viewer --hotkeys=toggle-fullscreen=shift+f11 -a -d --connect qemu:///system";
+      vv = "virt-viewer --spice-usbredir-redirect-on-connect=-1,-1,-1,-1,disallow --hotkeys=toggle-fullscreen=shift+f11 -a -d --connect qemu:///system";
     };
   };
 }

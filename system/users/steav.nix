@@ -17,6 +17,7 @@
     extraGroups = [
       "wheel"
       "networkmanager"
+      "uinput"
     ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
@@ -33,6 +34,8 @@
     fsType = "btrfs";
     options = [
       "defaults"
+      "discard"
+      "noatime"
       "compress=zstd"
       "rw"
       "exec"
@@ -45,6 +48,8 @@
     fsType = "btrfs";
     options = [
       "defaults"
+      "discard"
+      "noatime"
       "compress=zstd"
       "subvol=home/user/steam"
       "rw"
@@ -58,6 +63,8 @@
     fsType = "btrfs";
     options = [
       "defaults"
+      "discard"
+      "noatime"
       "compress=zstd"
       "subvol=home/user/heroic_games_launcher"
       "rw"
