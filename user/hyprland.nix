@@ -39,11 +39,11 @@
         splash_offset = 2.0;
 
         preload = [
-          "$HOME/wallpaper.webp"
+          "$HOME/wallpaper"
         ];
 
         wallpaper = [
-          ", $HOME/wallpaper.webp"
+          ", $HOME/wallpaper"
         ];
       };
     };
