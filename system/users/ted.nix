@@ -33,7 +33,7 @@
     fsType = "virtiofs";
     options = [
       "defaults"
-      "users"
+      "noatime"
       "nofail"
     ];
   };

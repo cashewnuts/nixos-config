@@ -41,7 +41,7 @@
     fsType = "virtiofs";
     options = [
       "defaults"
-      "users"
+      "noatime"
       "nofail"
     ];
   };
@@ -51,7 +51,6 @@
     fsType = "ext4";
     options = [
       "defaults"
-      "users"
       "noauto"
       "nofail"
     ];

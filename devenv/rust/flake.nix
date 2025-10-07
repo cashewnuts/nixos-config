@@ -2,7 +2,7 @@
   description = "Rust development environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     rust-overlay.url = "github:oxalica/rust-overlay";
     flake-utils.url = "github:numtide/flake-utils";
   };
@@ -14,7 +14,7 @@
       rust-overlay,
       flake-utils,
     }:
-    flake-utils.lib.eachDefaultSystem (
+    flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (
       system:
       let
         overlays = [ (import rust-overlay) ];
@@ -26,18 +26,30 @@
             "rust-src" # for rust-analyzer
             "rust-analyzer"
           ];
+          targets = [
+            "wasm32-unknown-unknown"
+          ];
         };
       in
       {
-        devShell =
-          with pkgs;
-          mkShell {
+        devShells = with pkgs; rec {
+          default = mkShell {
             buildInputs = [
               openssl
               pkg-config
               rust
             ];
           };
+          lambda = mkShell {
+            buildInputs = [
+              openssl
+              pkg-config
+              rust
+              # https://www.cargo-lambda.info/guide/installation.html
+              cargo-lambda
+            ];
+          };
+        };
       }
     );
 }

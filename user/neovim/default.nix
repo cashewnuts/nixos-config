@@ -6,6 +6,7 @@
     ./colorschemes.nix
     ./keymaps.nix
     ./lualine.nix
+    ./mini-pairs.nix
     ./snacks.nix
     ./treesitter.nix
     ./web-devicons.nix

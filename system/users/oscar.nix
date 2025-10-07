@@ -28,12 +28,22 @@
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
 
+  fileSystems."/home/${username}/projects" = {
+    device = "projects";
+    fsType = "virtiofs";
+    options = [
+      "defaults"
+      "noatime"
+      "nofail"
+    ];
+  };
+
   fileSystems."/mnt/share" = {
     device = "share";
     fsType = "virtiofs";
     options = [
       "defaults"
-      "users"
+      "noatime"
       "nofail"
     ];
   };
