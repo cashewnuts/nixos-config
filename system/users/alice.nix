@@ -46,16 +46,6 @@
     ];
   };
 
-  fileSystems."/mnt/data" = {
-    device = "/dev/mapper/store-data";
-    fsType = "ext4";
-    options = [
-      "defaults"
-      "noauto"
-      "nofail"
-    ];
-  };
-
   nix.settings = {
     experimental-features = [
       "nix-command"
