@@ -140,20 +140,40 @@
             action = "<CMD>LspRestart<Enter>";
           }
           {
+            mode = "n";
             key = "gd";
-            action.__raw = "require('telescope.builtin').lsp_definitions({ reuse_win = true })";
+            action.__raw = ''
+              function() 
+                require('telescope.builtin').lsp_definitions({ reuse_win = true })
+              end
+            '';
           }
           {
+            mode = "n";
             key = "gr";
-            action.__raw = "require('telescope.builtin').lsp_references({ reuse_win = true })";
+            action.__raw = ''
+              function()
+                require('telescope.builtin').lsp_references({ reuse_win = true })
+              end
+            '';
           }
           {
+            mode = "n";
             key = "gI";
-            action.__raw = "require('telescope.builtin').lsp_implementations({ reuse_win = true })";
+            action.__raw = ''
+              function()
+                require('telescope.builtin').lsp_implementations({ reuse_win = true })
+              end
+            '';
           }
           {
+            mode = "n";
             key = "gT";
-            action.__raw = "require('telescope.builtin').lsp_type_definitions({ reuse_win = true })";
+            action.__raw = ''
+              function()
+                require('telescope.builtin').lsp_type_definitions({ reuse_win = true })
+              end
+            '';
           }
         ];
       };
