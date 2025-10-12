@@ -139,6 +139,22 @@
             key = "<leader>lr";
             action = "<CMD>LspRestart<Enter>";
           }
+          {
+            key = "gd";
+            action.__raw = "require('telescope.builtin').lsp_definitions({ reuse_win = true })";
+          }
+          {
+            key = "gr";
+            action.__raw = "require('telescope.builtin').lsp_references({ reuse_win = true })";
+          }
+          {
+            key = "gI";
+            action.__raw = "require('telescope.builtin').lsp_implementations({ reuse_win = true })";
+          }
+          {
+            key = "gT";
+            action.__raw = "require('telescope.builtin').lsp_type_definitions({ reuse_win = true })";
+          }
         ];
       };
     };

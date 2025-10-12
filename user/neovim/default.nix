@@ -8,6 +8,7 @@
     ./lualine.nix
     ./mini-pairs.nix
     ./snacks.nix
+    ./telescope.nix
     ./treesitter.nix
     ./web-devicons.nix
     ./whichkey.nix
