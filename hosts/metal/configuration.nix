@@ -71,6 +71,11 @@
   };
   services.blueman.enable = true;
 
+  services.logind.settings.Login = {
+    HandlePowerKey = "suspend";
+    KillUserProcesses = false;
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
