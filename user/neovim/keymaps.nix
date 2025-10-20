@@ -20,6 +20,18 @@
       mode = "n";
       options.desc = "Previous Buffer";
     }
+    {
+      key = "H";
+      action = "<cmd>bp<CR>";
+      mode = "n";
+      options.desc = "Move to Previous Buffer";
+    }
+    {
+      key = "L";
+      action = "<cmd>bn<CR>";
+      mode = "n";
+      options.desc = "Move to Next Buffer";
+    }
     # Window
     {
       key = "wd";
@@ -50,6 +62,19 @@
       action = "<C-w>l";
       mode = "n";
       options.desc = "Focus Right Window";
+    }
+    # GitGutter
+    {
+      key = "[g";
+      action = "<cmd>GitGutterPrevHunk<CR>";
+      mode = "n";
+      options.desc = "Previous Hunk";
+    }
+    {
+      key = "]g";
+      action = "<cmd>GitGutterNextHunk<CR>";
+      mode = "n";
+      options.desc = "Next Hunk";
     }
   ];
 }

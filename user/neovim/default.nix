@@ -4,6 +4,7 @@
     ./blink-cmp.nix
     ./bufferline.nix
     ./colorschemes.nix
+    ./gitgutter.nix
     ./keymaps.nix
     ./lualine.nix
     ./mini-pairs.nix

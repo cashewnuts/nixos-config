@@ -40,6 +40,7 @@
         };
         ts_ls = {
           enable = true;
+          autostart = true;
         };
         marksman = {
           enable = true;
@@ -75,6 +76,7 @@
         };
         rust_analyzer = {
           enable = true;
+          autostart = true;
           installCargo = false;
           installRustc = false;
         };
