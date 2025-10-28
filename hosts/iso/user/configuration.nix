@@ -25,7 +25,7 @@
       "video"
     ]; # Enable ‘sudo’ for the user.
     # Allow the graphical user to login without password
-    initialHashedPassword = "";
+    initialPassword = "";
   };
   # Allow passwordless sudo from nixos user
   security.sudo = {
