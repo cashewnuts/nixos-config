@@ -49,6 +49,7 @@
             };
             modules = [
               ./hosts/iso/user/configuration.nix
+              ./system/users/alice.nix
               ./system/fonts.nix
               ./system/hyprland.nix
               ./system/fcitx5.nix
