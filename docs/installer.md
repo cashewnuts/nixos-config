@@ -46,14 +46,14 @@ sudo cryptsetup luksFormat "${DEVICE}1"
 
 ```bash { "name": "crypt-enroll", "tag": ["luks"], "interactive": true  }
 export DEVICE="/dev/vda"
-export REQUIRE_PIN="false"
+export REQUIRE_PIN="no"
 
 sudo systemd-cryptenroll --fido2-device=auto --fido2-with-client-pin=$REQUIRE_PIN "${DEVICE}1"
 ```
 
 ```bash { "name": "crypt-enroll-wipe", "tag": ["luks"], "interactive": true  }
 export DEVICE="/dev/vda"
-export REQUIRE_PIN="false"
+export REQUIRE_PIN="no"
 
 sudo systemd-cryptenroll --fido2-device=auto --fido2-with-client-pin=$REQUIRE_PIN --wipe-slot=0 "${DEVICE}1"
 ```
