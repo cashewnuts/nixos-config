@@ -109,13 +109,29 @@
             action = "hover";
             desc = "Hover";
           };
+          "<leader>ca" = {
+            action = "code_action";
+            desc = "Show code actions";
+          };
+          "<leader>cr" = {
+            action = "rename";
+            desc = "Rename";
+          };
           "<leader>cw" = {
             action = "workspace_symbol";
             desc = "Workspace Symbol";
           };
-          "<leader>rn" = {
-            action = "rename";
-            desc = "Rename";
+          "<leader>wl" = {
+            action = "list_workspace_folders";
+            desc = "List workspace folders";
+          };
+          "<leader>wa" = {
+            action = "add_workspace_folder";
+            desc = "Add workspace folder";
+          };
+          "<leader>wr" = {
+            action = "remove_workspace_folder";
+            desc = "Remove workspace folder";
           };
         };
         diagnostic = {

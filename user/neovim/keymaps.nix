@@ -76,5 +76,17 @@
       mode = "n";
       options.desc = "Next Hunk";
     }
+    {
+      key = "[h";
+      action = "<cmd>GitGutterPrevHunk<CR>";
+      mode = "n";
+      options.desc = "Previous Hunk";
+    }
+    {
+      key = "]h";
+      action = "<cmd>GitGutterNextHunk<CR>";
+      mode = "n";
+      options.desc = "Next Hunk";
+    }
   ];
 }
