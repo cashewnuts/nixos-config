@@ -174,6 +174,7 @@
               ./system/firefox.nix
               ./system/stub-ld.nix
               ./system/appimage.nix
+              ./system/openssh.nix
               home-manager.nixosModules.home-manager
               {
                 home-manager = {
