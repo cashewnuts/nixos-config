@@ -37,7 +37,7 @@
     mode = "0600";
     text = ''
       # <volume-name> <encrypted-device> [key-file] [options]
-      store-data	/dev/disk/by-uuid/c975cdfa-0bfd-4e42-a5fe-c00b2292d88a	none	noauto,discard,fido2-device=auto
+      store-data	/dev/disk/by-label/T7data	none	noauto,discard,fido2-device=auto
     '';
   };
 

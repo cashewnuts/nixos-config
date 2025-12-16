@@ -17,7 +17,7 @@ ssh-add $KEY_FILE
 ## setup /mnt/data
 
 ```bash { "name": "mount-data" }
-export TARGET="/dev/disk/by-uuid/c975cdfa-0bfd-4e42-a5fe-c00b2292d88a"
+export TARGET="/dev/disk/by-label/T7data"
 # open
 sudo systemd-cryptsetup attach store-data $TARGET
 # make dir
