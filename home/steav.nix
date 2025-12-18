@@ -109,6 +109,7 @@
   programs.zsh = {
     shellAliases = {
       vv = "virt-viewer --spice-usbredir-auto-redirect-filter='-1,-1,-1,-1,0' --spice-usbredir-redirect-on-connect='-1,0x18d1,0x9470,-1,1' --hotkeys=toggle-fullscreen=shift+f11 -a -d --connect qemu:///system";
+      alice = "waypipe ssh alice@alice.internal.vm";
     };
   };
 }

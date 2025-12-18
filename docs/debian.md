@@ -35,7 +35,7 @@ Setup memo
 add ssh authorization_keys
 
 ```
-$ ssh-copy-id [username]@debian.qxyz.vm
+$ ssh-copy-id [username]@debian.internal.vm
 ```
 
 ### Change server settings
