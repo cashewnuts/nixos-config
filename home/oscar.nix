@@ -16,7 +16,7 @@
     ../user/devenv.nix
     ../user/kitty.nix
     ../user/neovim.nix
-    ../user/ssh.nix
+    ../user/ssh-agent.nix
     ../user/stylix.nix
   ];
 
