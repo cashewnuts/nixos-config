@@ -112,4 +112,9 @@
       alice = "waypipe ssh alice@alice.internal.vm";
     };
   };
+
+  programs.ssh = {
+    enable = true;
+    setXAuthLocation = true;
+  };
 }
