@@ -11,6 +11,7 @@
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
       AllowUsers = [ username ];
+      X11Forwarding = true;
     };
   };
 }
