@@ -135,6 +135,7 @@
               ./system/flatpak.nix
               ./system/libvirt.nix
               ./system/waypipe.nix
+              ./system/ssh.nix
               ./system/networkmanager.nix
               ./system/game.nix
               home-manager.nixosModules.home-manager
