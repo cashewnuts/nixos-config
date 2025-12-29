@@ -109,9 +109,11 @@
   programs.zsh = {
     shellAliases = {
       vv = "virt-viewer --spice-usbredir-auto-redirect-filter='-1,-1,-1,-1,0' --spice-usbredir-redirect-on-connect='-1,0x18d1,0x9470,-1,1' --hotkeys=toggle-fullscreen=shift+f11 -a -d --connect qemu:///system";
-      alice = "waypipe --video none,av1,hw ssh alice@alice.internal.vm";
+      alice = "ssh alice@alice.internal.vm";
+      walice = "waypipe --video none,av1,hw ssh alice@alice.internal.vm";
       xalice = "ssh -X alice@alice.internal.vm";
-      oscar = "waypipe --video none,av1,hw ssh oscar@oscar.internal.vm";
+      oscar = "ssh oscar@oscar.internal.vm";
+      woscar = "waypipe --video none,av1,hw ssh oscar@oscar.internal.vm";
       xoscar = "ssh -X oscar@oscar.internal.vm";
     };
   };
