@@ -20,6 +20,10 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -29,6 +33,7 @@
       home-manager,
       nixvim,
       stylix,
+      microvm,
       ...
     }:
     let
@@ -122,6 +127,8 @@
             specialArgs = {
               inherit hostName;
               inherit username;
+              inherit microvm;
+              inherit nixpkgs;
             };
             modules = [
               ./hosts/metal/configuration.nix
@@ -138,6 +145,8 @@
               ./system/ssh.nix
               ./system/networkmanager.nix
               ./system/game.nix
+              microvm.nixosModules.host
+              ./system/microvm.nix
               home-manager.nixosModules.home-manager
               {
                 home-manager = {
