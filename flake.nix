@@ -152,7 +152,7 @@
               ./system/networkmanager.nix
               ./system/game.nix
               microvm.nixosModules.host
-              ./system/microvm.nix
+              ./microvm
               home-manager.nixosModules.home-manager
               {
                 home-manager = {
