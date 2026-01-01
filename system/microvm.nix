@@ -23,10 +23,6 @@ in
       listen-address=127.0.0.1
       listen-address=fd12:3456:789a::1
 
-      # 上流 DNS（例）
-      server=1.1.1.1
-      server=8.8.8.8
-
       dhcp-range=192.168.180.2,192.168.180.254,255.255.255.0,12h
       dhcp-range=fd12:3456:789a::2,fd12:3456:789a::254
 
@@ -99,55 +95,76 @@ in
   imports = [
     microvm.nixosModules.host
   ];
-  microvm.vms = {
+  microvm.vms =
+    let
+      vm01 = "graham";
+    in
+    {
 
-    test-vm = {
-      # The package set to use for the microvm. This also determines the microvm's architecture.
-      # Defaults to the host system's package set if not given.
-      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      "${vm01}" = {
+        # The package set to use for the microvm. This also determines the microvm's architecture.
+        # Defaults to the host system's package set if not given.
+        pkgs = import nixpkgs { system = "x86_64-linux"; };
 
-      # (Optional) A set of special arguments to be passed to the MicroVM's NixOS modules.
-      specialArgs = {
-        inherit username;
-      };
-
-      # The configuration for the MicroVM.
-      # Multiple definitions will be merged as expected.
-      config = {
-        # It is highly recommended to share the host's nix-store
-        # with the VMs to prevent building huge images.
-        microvm = {
-          interfaces = [
-            {
-              type = "tap";
-              id = "mvm-test1";
-              mac = "02:00:00:00:00:01";
-            }
-          ];
-
-          shares = [
-            {
-              source = "/nix/store";
-              mountPoint = "/nix/.ro-store";
-              tag = "ro-store";
-              proto = "virtiofs";
-            }
-          ];
+        # (Optional) A set of special arguments to be passed to the MicroVM's NixOS modules.
+        specialArgs = {
+          username = vm01;
         };
 
-        openssh.secure = false;
-        users.authorizedKeys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOTlpccJLaR57c6RJ2GO/p/nFFjFhB6W2tIBRymOdkCP steav@main"
-        ];
+        # The configuration for the MicroVM.
+        # Multiple definitions will be merged as expected.
+        config = {
+          # It is highly recommended to share the host's nix-store
+          # with the VMs to prevent building huge images.
+          microvm = {
+            interfaces = [
+              {
+                type = "tap";
+                id = "mvm-${vm01}";
+                mac = "02:00:00:00:00:01";
+              }
+            ];
 
-        # Any other configuration for your MicroVM
-        imports = [
-          ./users/microvm.nix
-          ./openssh.nix
-        ];
+            shares = [
+              {
+                proto = "virtiofs";
+                source = "/nix/store";
+                mountPoint = "/nix/.ro-store";
+                tag = "ro-store";
+                readOnly = true;
+              }
+              {
+                proto = "virtiofs";
+                tag = "home";
+                # Source path can be absolute or relative
+                # to /var/lib/microvms/$hostName
+                source = "home";
+                mountPoint = "/home";
+              }
+              {
+                proto = "virtiofs";
+                tag = "persist";
+                # Source path can be absolute or relative
+                # to /var/lib/microvms/$hostName
+                source = "/var/lib/microvms/persist";
+                mountPoint = "/persist";
+              }
+            ];
+          };
 
-        systemd.network.enable = true;
+          openssh.secure = false;
+          users.authorizedKeys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOTlpccJLaR57c6RJ2GO/p/nFFjFhB6W2tIBRymOdkCP steav@main"
+          ];
+
+          # Any other configuration for your MicroVM
+          imports = [
+            ./users/microvm.nix
+            ./openssh.nix
+          ];
+
+          systemd.network.enable = true;
+        };
       };
     };
-  };
 }

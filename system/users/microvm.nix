@@ -33,10 +33,27 @@
       ]
       ++ config.users.authorizedKeys;
     };
+    security.sudo = {
+      enable = true;
+      wheelNeedsPassword = false;
+    };
 
     environment.shells = with pkgs; [ zsh ];
     users.defaultUserShell = pkgs.zsh;
-    programs.zsh.enable = true;
+    programs.zsh = {
+      enable = true;
+      enableCompletion = true;
+      autosuggestions.enable = true;
+      syntaxHighlighting.enable = true;
+
+      shellAliases = { };
+
+      histSize = 10000;
+      histFile = "$HOME/.zsh_history";
+      setOptions = [
+        "HIST_IGNORE_ALL_DUPS"
+      ];
+    };
 
     nix.settings = {
       experimental-features = [
