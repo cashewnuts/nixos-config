@@ -117,6 +117,10 @@ in
           # It is highly recommended to share the host's nix-store
           # with the VMs to prevent building huge images.
           microvm = {
+            vcpu = 4;
+            mem = 6144;
+            hugepageMem = 6144;
+
             interfaces = [
               {
                 type = "tap";
@@ -162,9 +166,18 @@ in
             impermanence.nixosModules.impermanence
             ./users/microvm.nix
             ./openssh.nix
+            ./waypipe.nix
+            ./firefox.nix
           ];
 
           systemd.network.enable = true;
+
+          # Graphics
+          hardware.graphics.enable = true;
+          # Wayland アプリを headless で動かすために必要
+          environment.variables = {
+            XDG_RUNTIME_DIR = "/run/user/1000";
+          };
 
           fileSystems."/persist".neededForBoot = lib.mkForce true;
           environment.persistence."/persist" = {
