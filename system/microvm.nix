@@ -1,8 +1,8 @@
 {
   microvm,
-  system,
+  impermanence,
   nixpkgs,
-  username,
+  lib,
   ...
 }:
 let
@@ -159,11 +159,22 @@ in
 
           # Any other configuration for your MicroVM
           imports = [
+            impermanence.nixosModules.impermanence
             ./users/microvm.nix
             ./openssh.nix
           ];
 
           systemd.network.enable = true;
+
+          fileSystems."/persist".neededForBoot = lib.mkForce true;
+          environment.persistence."/persist" = {
+            files = [
+              "/etc/ssh/ssh_host_ed25519_key"
+              "/etc/ssh/ssh_host_ed25519_key.pub"
+              "/etc/ssh/ssh_host_rsa_key"
+              "/etc/ssh/ssh_host_rsa_key.pub"
+            ];
+          };
         };
       };
     };

@@ -24,6 +24,10 @@
       url = "github:microvm-nix/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -34,6 +38,7 @@
       nixvim,
       stylix,
       microvm,
+      impermanence,
       ...
     }:
     let
@@ -127,8 +132,9 @@
             specialArgs = {
               inherit hostName;
               inherit username;
-              inherit microvm;
               inherit nixpkgs;
+              inherit microvm;
+              inherit impermanence;
             };
             modules = [
               ./hosts/metal/configuration.nix
