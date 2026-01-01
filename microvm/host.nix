@@ -29,7 +29,6 @@ in
       enable-ra
     '';
   };
-  networking.useNetworkd = true;
   services.resolved.enable = false;
 
   networking.nat = {

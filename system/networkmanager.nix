@@ -1,8 +1,11 @@
 {
+  lib,
   ...
 }:
 {
   networking = {
+    useDHCP = lib.mkForce false;
+    dhcpcd.enable = lib.mkForce false;
     networkmanager = {
       enable = true;
       dns = "dnsmasq";

@@ -1,5 +1,6 @@
 {
   impermanence,
+  pkgs,
   nixpkgs,
   lib,
   ...
@@ -16,6 +17,8 @@
         # Defaults to the host system's package set if not given.
         pkgs = import nixpkgs { system = "x86_64-linux"; };
 
+        autostart = false;
+
         # (Optional) A set of special arguments to be passed to the MicroVM's NixOS modules.
         specialArgs = {
           username = vm01;
@@ -27,9 +30,24 @@
           # It is highly recommended to share the host's nix-store
           # with the VMs to prevent building huge images.
           microvm = {
+            optimize.enable = false;
             vcpu = 4;
             mem = 6144;
             hugepageMem = 6144;
+
+            qemu.extraArgs = [
+              "-device"
+              ''{"driver":"virtio-vga-gl","id":"video0","max_outputs":1}''
+              "-display"
+              "egl-headless,rendernode=/dev/dri/renderD128"
+              # FIXME audio: failing cus `Connection Refused Error`
+              # "-audiodev"
+              # "driver=pa,id=audio1,server=/run/user/1000/pulse/native"
+              # "-device"
+              # "virtio-sound-pci,audiodev=audio1"
+              # "-device"
+              # "hda-output,audiodev=audio1"
+            ];
 
             interfaces = [
               {
@@ -88,6 +106,9 @@
           environment.variables = {
             XDG_RUNTIME_DIR = "/run/user/1000";
           };
+
+          # FIXME audio
+          # services.pulseaudio.enable = true;
 
           fileSystems."/persist".neededForBoot = lib.mkForce true;
           environment.persistence."/persist" = {
