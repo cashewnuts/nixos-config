@@ -27,6 +27,7 @@
       uid = 1000;
       extraGroups = [
         "wheel"
+        "pipewire"
       ]; # Enable ‘sudo’ for the user.
       openssh.authorizedKeys.keys = [
         # Add authorized keys

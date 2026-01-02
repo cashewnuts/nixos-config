@@ -91,4 +91,6 @@ in
   imports = [
     microvm.nixosModules.host
   ];
+
+  users.users.microvm.extraGroups = [ "pipewire" ];
 }

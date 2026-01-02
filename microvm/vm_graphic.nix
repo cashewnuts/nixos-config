@@ -40,13 +40,10 @@
               ''{"driver":"virtio-vga-gl","id":"video0","max_outputs":1}''
               "-display"
               "egl-headless,rendernode=/dev/dri/renderD128"
-              # FIXME audio: failing cus `Connection Refused Error`
-              # "-audiodev"
-              # "driver=pa,id=audio1,server=/run/user/1000/pulse/native"
-              # "-device"
-              # "virtio-sound-pci,audiodev=audio1"
-              # "-device"
-              # "hda-output,audiodev=audio1"
+              "-audiodev"
+              "driver=pipewire,id=audio1"
+              "-device"
+              "virtio-sound-pci,audiodev=audio1"
             ];
 
             interfaces = [
@@ -107,8 +104,21 @@
             XDG_RUNTIME_DIR = "/run/user/1000";
           };
 
-          # FIXME audio
-          # services.pulseaudio.enable = true;
+          services.pipewire = {
+            enable = true;
+            systemWide = true;
+            alsa.enable = true;
+            alsa.support32Bit = true;
+            pulse.enable = true;
+            wireplumber = {
+              enable = true;
+            };
+          };
+          environment.systemPackages = with pkgs; [
+            alsa-utils # aplay
+            pulseaudio # pactl
+            pciutils
+          ];
 
           fileSystems."/persist".neededForBoot = lib.mkForce true;
           environment.persistence."/persist" = {
