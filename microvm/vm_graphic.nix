@@ -36,10 +36,12 @@
             hugepageMem = 6144;
 
             qemu.extraArgs = [
+              # GPU
               "-device"
               ''{"driver":"virtio-vga-gl","id":"video0","max_outputs":1}''
               "-display"
               "egl-headless,rendernode=/dev/dri/renderD128"
+              # AUDIO
               "-audiodev"
               "driver=pipewire,id=audio1"
               "-device"
@@ -54,6 +56,15 @@
               }
             ];
 
+            devices = [
+              {
+                # Dummy for usb
+                # https://github.com/microvm-nix/microvm.nix/blob/f4ae3dc4ee4c9b585b03c36bd73ef68d2a8eb3a9/lib/runners/qemu.nix#L64
+                bus = "usb";
+                path = "";
+              }
+            ];
+
             shares = [
               {
                 proto = "virtiofs";
@@ -64,22 +75,20 @@
               }
               {
                 proto = "virtiofs";
-                tag = "home";
-                # Source path can be absolute or relative
-                # to /var/lib/microvms/$hostName
-                source = "home";
-                mountPoint = "/home";
-              }
-              {
-                proto = "virtiofs";
                 tag = "persist";
                 # Source path can be absolute or relative
                 # to /var/lib/microvms/$hostName
-                source = "/var/lib/microvms/persist";
+                source = "/var/lib/microvms/.persist";
                 mountPoint = "/persist";
               }
             ];
           };
+
+          services.udev.extraRules = ''
+            # 特定の HID デバイスの権限を 0666 にする
+            SUBSYSTEMS=="usb", ATTRS{idVendor}=="18d1", ATTRS{idProduct}=="9470", MODE="0666"
+            KERNEL=="hidraw*", ATTRS{idVendor}=="18d1", ATTRS{idProduct}=="9470", MODE="0666"
+          '';
 
           openssh.secure = false;
           users.authorizedKeys = [
@@ -90,6 +99,7 @@
           imports = [
             impermanence.nixosModules.impermanence
             ./user.nix
+            ../system/fonts.nix
             ../system/openssh.nix
             ../system/waypipe.nix
             ../system/firefox.nix
@@ -119,6 +129,11 @@
             pulseaudio # pactl
             pciutils
           ];
+          environment.etc."wireplumber/wireplumber.conf.d/50-default-volume.conf".text = ''
+            wireplumber.settings = {
+              device.routes.default-sink-volume = 1.0
+            }
+          '';
 
           fileSystems."/persist".neededForBoot = lib.mkForce true;
           environment.persistence."/persist" = {
@@ -127,6 +142,8 @@
               "/etc/ssh/ssh_host_ed25519_key.pub"
               "/etc/ssh/ssh_host_rsa_key"
               "/etc/ssh/ssh_host_rsa_key.pub"
+              "/home/${vm01}/.zshrc"
+              "/home/${vm01}/.zsh_history"
             ];
           };
         };

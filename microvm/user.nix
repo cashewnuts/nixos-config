@@ -33,6 +33,14 @@
         # Add authorized keys
       ]
       ++ config.users.authorizedKeys;
+      packages = with pkgs; [
+        tree
+        file
+        cryptsetup
+        neovim
+        vlc
+        mcomix
+      ];
     };
     security.sudo = {
       enable = true;

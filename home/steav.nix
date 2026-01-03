@@ -1,6 +1,7 @@
 {
   config,
   system,
+  lib,
   username,
   pkgs,
   ...
@@ -48,6 +49,7 @@
     pkgs.gitui
     pkgs.vlc
     pkgs.runme
+    pkgs.socat
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -107,6 +109,69 @@
   };
 
   programs.zsh = {
+    initContent = lib.mkOrder 1000 ''
+      usb-add() {
+        local NAME="$1"
+        local ID="$2"
+        local VENDOR="$3"
+        local PRODUCT="$4"
+        cat <<EOF | sudo socat - UNIX-CONNECT:/var/lib/microvms/''${NAME}/''${NAME}.sock
+        { "execute": "qmp_capabilities" }
+        {
+          "execute": "device_add",
+          "arguments": {
+            "driver": "usb-host",
+            "id": "''${ID}",
+            "vendorid": ''${VENDOR},
+            "productid": ''${PRODUCT}
+          }
+        }
+      EOF
+      }
+
+      usb-del() {
+        local NAME="$1"
+        local ID="$2"
+        cat <<EOF | sudo socat - UNIX-CONNECT:/var/lib/microvms/''${NAME}/''${NAME}.sock
+        { "execute": "qmp_capabilities" }
+        {
+          "execute": "device_del",
+          "arguments": {
+            "id": "''${ID}"
+          }
+        }
+      EOF
+      }
+
+      usb-ls() {
+        local NAME="$1"
+        cat <<EOF | sudo socat - UNIX-CONNECT:/var/lib/microvms/''${NAME}/''${NAME}.sock
+        { "execute": "qmp_capabilities" }
+        { "execute": "x-query-usb" }
+      EOF
+      }
+
+      usb-titan() {
+        local VM="$1"
+        usb-add $VM usb_titan 6353 38000
+      }
+
+      usb-titan-del() {
+        local VM="$1"
+        usb-del $VM usb_titan
+      }
+
+      usb-t7() {
+        local VM="$1"
+        usb-add $VM usb_t7 1256 25083
+      }
+
+      usb-t7-del() {
+        local VM="$1"
+        usb-del $VM usb_t7
+      }
+    '';
+
     shellAliases = {
       vv = "virt-viewer --spice-usbredir-auto-redirect-filter='-1,-1,-1,-1,0' --spice-usbredir-redirect-on-connect='-1,0x18d1,0x9470,-1,1' --hotkeys=toggle-fullscreen=shift+f11 -a -d --connect qemu:///system";
       alice = "kitten ssh alice@alice.internal.vm";
@@ -115,6 +180,8 @@
       oscar = "kitten ssh oscar@oscar.internal.vm";
       woscar = "waypipe --video none,av1,hw ssh oscar@oscar.internal.vm";
       xoscar = "ssh -X oscar@oscar.internal.vm";
+      graham = "kitten ssh graham@graham.microvm.vm";
+      wgraham = "waypipe --video none,av1,hw ssh graham@graham.microvm.vm";
     };
   };
 }

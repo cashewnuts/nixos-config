@@ -5,7 +5,6 @@
   config,
   lib,
   pkgs,
-  modulesPath,
   ...
 }:
 
@@ -62,6 +61,11 @@
   swapDevices = [
     { device = "/dev/disk/by-label/swap"; }
   ];
+
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", ATTR{idProduct}=="9470", GROUP="kvm"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", ATTR{idProduct}=="61fb", GROUP="kvm"
+  '';
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
