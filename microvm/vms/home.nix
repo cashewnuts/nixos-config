@@ -47,7 +47,7 @@
               "egl-headless,rendernode=/dev/dri/renderD128"
               # AUDIO
               "-audiodev"
-              "driver=pipewire,id=audio1,out.latency=15000,out.mixing-engine=true,out.buffer-length=10000,out.format=s16"
+              "driver=pipewire,id=audio1,out.latency=20000,out.buffer-length=40000,in.latency=20000,in.buffer-length=40000"
               "-device"
               "virtio-sound-pci,audiodev=audio1"
             ];
@@ -131,6 +131,7 @@
             ../../system/openssh.nix
             ../../system/waypipe.nix
             ../../system/firefox.nix
+            ../../system/appimage.nix
             home-manager.nixosModules.home-manager
             {
               home-manager = {

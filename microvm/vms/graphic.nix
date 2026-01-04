@@ -43,7 +43,7 @@
               "egl-headless,rendernode=/dev/dri/renderD128"
               # AUDIO
               "-audiodev"
-              "driver=pipewire,id=audio1"
+              "driver=pipewire,id=audio1,out.latency=20000,out.buffer-length=40000,in.latency=20000,in.buffer-length=40000"
               "-device"
               "virtio-sound-pci,audiodev=audio1"
             ];
