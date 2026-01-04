@@ -135,6 +135,9 @@
               inherit nixpkgs;
               inherit microvm;
               inherit impermanence;
+              inherit home-manager;
+              inherit nixvim;
+              inherit stylix;
             };
             modules = [
               ./hosts/metal/configuration.nix

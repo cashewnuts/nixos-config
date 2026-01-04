@@ -62,9 +62,21 @@
     { device = "/dev/disk/by-label/swap"; }
   ];
 
+  environment.etc.crypttab = {
+    mode = "0600";
+    text = ''
+      # <volume-name> <encrypted-device> [key-file] [options]
+      microvm-alice	UUID=9d2ee436-b47b-4023-942d-3a3f1c2a5227	none	noauto,discard,fido2-device=auto
+    '';
+  };
+
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", ATTR{idProduct}=="9470", GROUP="kvm"
     SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", ATTR{idProduct}=="61fb", GROUP="kvm"
+
+    # CHECK: # udevadm info /dev/mapper/xxx
+    # KERNEL Device Name, Block Device, DM_NAME, Action
+    KERNEL=="dm-*", SUBSYSTEM=="block", ENV{DM_NAME}="microvm-*", ACTION=="add", GROUP="kvm", MODE="0660"
   '';
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

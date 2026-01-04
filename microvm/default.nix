@@ -6,6 +6,7 @@
   imports = [
     microvm.nixosModules.host
     ./host.nix
-    ./vm_graphic.nix
+    ./vms/graphic.nix
+    ./vms/home.nix
   ];
 }

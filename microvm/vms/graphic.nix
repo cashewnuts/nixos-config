@@ -98,11 +98,11 @@
           # Any other configuration for your MicroVM
           imports = [
             impermanence.nixosModules.impermanence
-            ./user.nix
-            ../system/fonts.nix
-            ../system/openssh.nix
-            ../system/waypipe.nix
-            ../system/firefox.nix
+            ./user/graham.nix
+            ../../system/fonts.nix
+            ../../system/openssh.nix
+            ../../system/waypipe.nix
+            ../../system/firefox.nix
           ];
 
           systemd.network.enable = true;
