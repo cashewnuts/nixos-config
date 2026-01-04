@@ -43,9 +43,11 @@
               "egl-headless,rendernode=/dev/dri/renderD128"
               # AUDIO
               "-audiodev"
-              "driver=pipewire,id=audio1,out.latency=20000,out.buffer-length=40000,in.latency=20000,in.buffer-length=40000"
+              "driver=pipewire,id=audio1,out.latency=30000,out.buffer-length=60000,in.latency=30000,in.buffer-length=60000"
               "-device"
-              "virtio-sound-pci,audiodev=audio1"
+              "ich9-intel-hda"
+              "-device"
+              "hda-duplex,audiodev=audio1"
             ];
 
             interfaces = [

@@ -99,7 +99,9 @@
 
   programs.git = {
     enable = true;
-    userName = username;
-    userEmail = "cashewnuts903+alice@gmail.com";
+    settings.user = {
+      name = username;
+      email = "cashewnuts903+${username}@gmail.com";
+    };
   };
 }

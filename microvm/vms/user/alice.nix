@@ -52,7 +52,17 @@
       autosuggestions.enable = true;
       syntaxHighlighting.enable = true;
 
-      shellAliases = { };
+      loginShellInit = lib.mkOrder 1000 ''
+        install-home-manager() {
+          nix-channel --add https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz home-manager
+          nix-channel --update
+          nix-shell '<home-manager>' -A install
+        }
+      '';
+
+      shellAliases = {
+        home-update = "home-manager switch --flake ~/nixos-config/home-standalone";
+      };
 
       histSize = 10000;
       histFile = "$HOME/.zsh_history";

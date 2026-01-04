@@ -1,11 +1,7 @@
 {
   impermanence,
-  config,
   nixpkgs,
   lib,
-  home-manager,
-  nixvim,
-  stylix,
   ...
 }:
 {
@@ -47,9 +43,11 @@
               "egl-headless,rendernode=/dev/dri/renderD128"
               # AUDIO
               "-audiodev"
-              "driver=pipewire,id=audio1,out.latency=20000,out.buffer-length=40000,in.latency=20000,in.buffer-length=40000"
+              "driver=pipewire,id=audio1,out.latency=30000,out.buffer-length=60000,in.latency=30000,in.buffer-length=60000"
               "-device"
-              "virtio-sound-pci,audiodev=audio1"
+              "ich9-intel-hda"
+              "-device"
+              "hda-duplex,audiodev=audio1"
             ];
 
             interfaces = [
@@ -73,9 +71,10 @@
 
             volumes = [
               {
-                image = "nix-store-overlay.img";
+                fsType = "ext4";
+                autoCreate = false;
+                image = "/dev/vg01/microvm-${username}-store";
                 mountPoint = "/nix/.rw-store";
-                size = 6048;
               }
               {
                 fsType = "ext4";
@@ -132,24 +131,6 @@
             ../../system/waypipe.nix
             ../../system/firefox.nix
             ../../system/appimage.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = false;
-                useUserPackages = true;
-                extraSpecialArgs = {
-                  inherit system;
-                  inherit nixvim;
-                  inherit username;
-                };
-                users.${username} = {
-                  imports = [
-                    stylix.homeModules.stylix
-                    ../../home/alice.microvm.nix
-                  ];
-                };
-              };
-            }
           ];
 
           systemd.network.enable = true;
