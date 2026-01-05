@@ -102,14 +102,13 @@
           imports = [
             impermanence.nixosModules.impermanence
             ./user/graham.nix
+            ./modules/network.nix
             ../../system/fonts.nix
             ../../system/avahi.nix
             ../../system/openssh.nix
             ../../system/waypipe.nix
             ../../system/firefox.nix
           ];
-
-          systemd.network.enable = true;
 
           # Graphics
           hardware.graphics.enable = true;

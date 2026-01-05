@@ -127,6 +127,7 @@
           imports = [
             impermanence.nixosModules.impermanence
             ./user/alice.nix
+            ./modules/network.nix
             ../../system/fonts.nix
             ../../system/avahi.nix
             ../../system/openssh.nix
@@ -134,8 +135,6 @@
             ../../system/firefox.nix
             ../../system/appimage.nix
           ];
-
-          systemd.network.enable = true;
 
           # Graphics
           hardware.graphics.enable = true;
