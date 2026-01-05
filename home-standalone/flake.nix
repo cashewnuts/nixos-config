@@ -46,7 +46,7 @@
             };
             modules = [
               stylix.homeModules.stylix
-              ../home/alice.microvm.nix
+              ../home/user/alice.microvm.nix
             ];
           };
       };

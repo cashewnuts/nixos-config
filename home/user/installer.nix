@@ -23,7 +23,7 @@
 
   home.file = {
     "README.md" = {
-      source = ../docs/installer.md;
+      source = ../../docs/installer.md;
     };
     "nixos-config" = {
       source = ../.;

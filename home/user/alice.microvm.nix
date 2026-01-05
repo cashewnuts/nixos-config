@@ -1,6 +1,4 @@
 {
-  config,
-  system,
   username,
   pkgs,
   ...
@@ -8,15 +6,13 @@
 {
 
   imports = [
-    ../user/zsh.nix
-    ../user/hyprland.nix
-    ../user/fcitx5.nix
-    ../user/firefox.nix
-    ../user/devenv.nix
-    ../user/kitty.nix
-    ../user/neovim.nix
-    ../user/ssh-agent.nix
-    ../user/stylix.nix
+    ../modules/zsh.nix
+    ../modules/firefox.nix
+    ../modules/devenv.nix
+    ../modules/kitty.nix
+    ../modules/neovim.nix
+    ../modules/ssh-agent.nix
+    ../modules/stylix.nix
   ];
 
   # due to home-manager/stylix bug add this line
@@ -78,7 +74,7 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
     "README.md" = {
-      source = ../docs/alice.md;
+      source = ../../docs/alice.md;
     };
   };
 

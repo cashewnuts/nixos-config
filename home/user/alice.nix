@@ -1,22 +1,20 @@
 {
-  config,
-  system,
   username,
   pkgs,
-  nixvim,
   ...
 }:
 {
 
   imports = [
-    ../user/zsh.nix
-    ../user/hyprland.nix
-    ../user/fcitx5.nix
-    ../user/firefox.nix
-    ../user/devenv.nix
-    ../user/neovim.nix
-    ../user/ssh-agent.nix
-    ../user/stylix.nix
+    ../modules/zsh.nix
+    ../modules/hyprland.nix
+    ../modules/fcitx5.nix
+    ../modules/firefox.nix
+    ../modules/devenv.nix
+    ../modules/kitty.nix
+    ../modules/neovim.nix
+    ../modules/ssh-agent.nix
+    ../modules/stylix.nix
   ];
 
   # due to home-manager/stylix bug add this line
@@ -48,7 +46,7 @@
     pkgs.gitui
     pkgs.vlc
     pkgs.runme
-    pkgs.awscli2
+    pkgs.mcomix
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -78,7 +76,7 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
     "README.md" = {
-      source = ../docs/ted.md;
+      source = ../../docs/alice.md;
     };
   };
 

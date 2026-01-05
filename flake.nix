@@ -49,45 +49,6 @@
     in
     {
       packages.${system} = {
-        build_iso =
-          let
-            username = "alice";
-          in
-          inputs.nixos-generators.nixosGenerate {
-            inherit system;
-            specialArgs = {
-              inherit username;
-            };
-            modules = [
-              ./hosts/iso/user/configuration.nix
-              ./system/users/alice.nix
-              ./system/fonts.nix
-              ./system/hyprland.nix
-              ./system/fcitx5.nix
-              ./system/firefox.nix
-              ./system/stub-ld.nix
-              ./system/appimage.nix
-              home-manager.nixosModules.home-manager
-              {
-                home-manager = {
-                  useGlobalPkgs = false;
-                  useUserPackages = true;
-                  extraSpecialArgs = {
-                    inherit system;
-                    inherit nixvim;
-                    inherit username;
-                  };
-                  users.alice = {
-                    imports = [
-                      stylix.homeModules.stylix
-                      ./home/alice.nix
-                    ];
-                  };
-                };
-              }
-            ];
-            format = "iso";
-          };
         build_installer =
           let
             username = "nixos";
@@ -107,7 +68,7 @@
                   };
                   users.${username} = {
                     imports = [
-                      ./home/installer.nix
+                      ./home/user/installer.nix
                     ];
                   };
                 };
@@ -170,7 +131,7 @@
                   users.${username} = {
                     imports = [
                       stylix.homeModules.stylix
-                      ./home/steav.nix
+                      ./home/user/steav.nix
                     ];
                   };
                 };
@@ -210,7 +171,7 @@
                   users.${username} = {
                     imports = [
                       stylix.homeModules.stylix
-                      ./home/alice.nix
+                      ./home/user/alice.nix
                     ];
                   };
                 };
@@ -250,7 +211,7 @@
                   users.${username} = {
                     imports = [
                       stylix.homeModules.stylix
-                      ./home/oscar.nix
+                      ./home/user/oscar.nix
                     ];
                   };
                 };
@@ -288,7 +249,7 @@
                   users.${username} = {
                     imports = [
                       stylix.homeModules.stylix
-                      ./home/ted.nix
+                      ./home/user/ted.nix
                     ];
                   };
                 };

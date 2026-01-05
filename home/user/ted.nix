@@ -1,6 +1,4 @@
 {
-  config,
-  system,
   username,
   pkgs,
   ...
@@ -8,10 +6,18 @@
 {
 
   imports = [
-    ../user/zsh.nix
-    ../user/devenv.nix
-    ../user/neovim.nix
+    ../modules/zsh.nix
+    ../modules/hyprland.nix
+    ../modules/fcitx5.nix
+    ../modules/firefox.nix
+    ../modules/devenv.nix
+    ../modules/neovim.nix
+    ../modules/ssh-agent.nix
+    ../modules/stylix.nix
   ];
+
+  # due to home-manager/stylix bug add this line
+  home.enableNixpkgsReleaseCheck = false;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -33,8 +39,13 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
+    pkgs.fzf
+    pkgs.fd
+    pkgs.ripgrep
     pkgs.gitui
+    pkgs.vlc
     pkgs.runme
+    pkgs.awscli2
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -64,7 +75,7 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
     "README.md" = {
-      source = ../docs/oscar.dev.md;
+      source = ../../docs/ted.md;
     };
   };
 
@@ -87,17 +98,11 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  programs.zsh.shellAliases = {
-    home-update = "home-manager switch --flake ~/nixos-config/dev";
-  };
-
-  home.sessionPath = [
-    "$HOME/.nix-profile/bin"
-  ];
-
   programs.git = {
     enable = true;
-    userName = username;
-    userEmail = "cashewnuts903+oscar@gmail.com";
+    settings.user = {
+      name = username;
+      email = "cashewnuts903+${username}@gmail.com";
+    };
   };
 }
