@@ -114,8 +114,9 @@
               ./system/libvirt.nix
               ./system/waypipe.nix
               ./system/ssh.nix
+              ./system/avahi.nix
               ./system/networkmanager.nix
-              ./system/game.nix
+              ./system/cloud-hypervisor.nix
               microvm.nixosModules.host
               ./microvm
               home-manager.nixosModules.home-manager

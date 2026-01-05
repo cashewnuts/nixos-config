@@ -1,7 +1,8 @@
 {
+  config,
+  lib,
   impermanence,
   nixpkgs,
-  lib,
   ...
 }:
 {
@@ -127,6 +128,7 @@
             impermanence.nixosModules.impermanence
             ./user/alice.nix
             ../../system/fonts.nix
+            ../../system/avahi.nix
             ../../system/openssh.nix
             ../../system/waypipe.nix
             ../../system/firefox.nix
