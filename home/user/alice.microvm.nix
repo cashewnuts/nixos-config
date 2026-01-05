@@ -76,6 +76,15 @@
     "README.md" = {
       source = ../../docs/alice.md;
     };
+
+    ".local/bin/obsidian" = {
+      executable = true;
+      text = ''
+        #!/usr/bin/env bash
+
+        ~/Applications/Obsidian-1.10.6.AppImage --enable-features=UseOzonePlatform --ozone-platform=wayland
+      '';
+    };
   };
 
   # Home Manager can also manage your environment variables through
@@ -103,5 +112,11 @@
       name = username;
       email = "cashewnuts903+${username}@gmail.com";
     };
+  };
+
+  programs.zsh = {
+    envExtra = ''
+      export PATH="$PATH:$HOME/.local/bin"
+    '';
   };
 }
