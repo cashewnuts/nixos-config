@@ -20,8 +20,12 @@ in
       listen-address=127.0.0.1
       listen-address=fd12:3456:789a::1
 
-      dhcp-range=192.168.180.2,192.168.180.254,255.255.255.0,12h
-      dhcp-range=fd12:3456:789a::2,fd12:3456:789a::254
+      # Dynamic lease
+      dhcp-range=192.168.180.2,192.168.180.180,255.255.255.0,12h
+      dhcp-range=fd12:3456:789a::2,fd12:3456:789a::180
+      # Static lease
+      ## k3s
+      dhcp-host=02:00:00:00:01:01,192.168.180.200,[fd12:3456:789a::200],k3s
 
       dhcp-option=option:router,192.168.180.1
       dhcp-option=option:dns-server,192.168.180.1

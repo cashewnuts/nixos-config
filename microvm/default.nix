@@ -8,5 +8,6 @@
     ./host.nix
     ./vms/graphic.nix
     ./vms/home.nix
+    ./vms/k3s.nix
   ];
 }
