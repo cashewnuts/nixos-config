@@ -92,9 +92,5 @@ in
   # try to automatically start these MicroVMs on bootup
   microvm.autostart = [ ];
 
-  imports = [
-    microvm.nixosModules.host
-  ];
-
   users.users.microvm.extraGroups = [ "pipewire" ];
 }
