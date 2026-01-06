@@ -61,6 +61,46 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+
+    (pkgs.writeShellScriptBin "usb-ls" ''
+      NAME="$1"
+      cat <<EOF | sudo socat - UNIX-CONNECT:/var/lib/microvms/''${NAME}/''${NAME}.sock
+      { "execute": "qmp_capabilities" }
+      { "execute": "x-query-usb" }
+      EOF
+    '')
+    (pkgs.writeShellScriptBin "usb-add" ''
+      NAME="$1"
+      ID="$2"
+      VENDOR="$3"
+      PRODUCT="$4"
+      cat <<EOF | sudo socat - UNIX-CONNECT:/var/lib/microvms/''${NAME}/''${NAME}.sock
+      { "execute": "qmp_capabilities" }
+      {
+        "execute": "device_add",
+        "arguments": {
+          "driver": "usb-host",
+          "id": "''${ID}",
+          "vendorid": ''${VENDOR},
+          "productid": ''${PRODUCT}
+        }
+      }
+      EOF
+    '')
+    (pkgs.writeShellScriptBin "usb-del" ''
+      NAME="$1"
+      ID="$2"
+      cat <<EOF | sudo socat - UNIX-CONNECT:/var/lib/microvms/''${NAME}/''${NAME}.sock
+      { "execute": "qmp_capabilities" }
+      {
+        "execute": "device_del",
+        "arguments": {
+          "id": "''${ID}"
+        }
+      }
+      EOF
+    '')
+
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -110,47 +150,6 @@
 
   programs.zsh = {
     initContent = lib.mkOrder 1000 ''
-      usb-add() {
-        local NAME="$1"
-        local ID="$2"
-        local VENDOR="$3"
-        local PRODUCT="$4"
-        cat <<EOF | sudo socat - UNIX-CONNECT:/var/lib/microvms/''${NAME}/''${NAME}.sock
-        { "execute": "qmp_capabilities" }
-        {
-          "execute": "device_add",
-          "arguments": {
-            "driver": "usb-host",
-            "id": "''${ID}",
-            "vendorid": ''${VENDOR},
-            "productid": ''${PRODUCT}
-          }
-        }
-      EOF
-      }
-
-      usb-del() {
-        local NAME="$1"
-        local ID="$2"
-        cat <<EOF | sudo socat - UNIX-CONNECT:/var/lib/microvms/''${NAME}/''${NAME}.sock
-        { "execute": "qmp_capabilities" }
-        {
-          "execute": "device_del",
-          "arguments": {
-            "id": "''${ID}"
-          }
-        }
-      EOF
-      }
-
-      usb-ls() {
-        local NAME="$1"
-        cat <<EOF | sudo socat - UNIX-CONNECT:/var/lib/microvms/''${NAME}/''${NAME}.sock
-        { "execute": "qmp_capabilities" }
-        { "execute": "x-query-usb" }
-      EOF
-      }
-
       usb-titan() {
         local VM="$1"
         usb-add $VM usb_titan 6353 38000
