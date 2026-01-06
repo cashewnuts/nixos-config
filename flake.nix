@@ -117,7 +117,6 @@
               ./system/avahi.nix
               ./system/networkmanager.nix
               ./system/cloud-hypervisor.nix
-              microvm.nixosModules.host
               ./microvm
               home-manager.nixosModules.home-manager
               {

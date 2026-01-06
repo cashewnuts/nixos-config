@@ -24,10 +24,13 @@
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.${username} = {
       isNormalUser = true;
+      linger = true;
       uid = 1000;
       extraGroups = [
         "wheel"
         "pipewire"
+        "video"
+        "render"
       ]; # Enable ‘sudo’ for the user.
       openssh.authorizedKeys.keys = [
         # Add authorized keys

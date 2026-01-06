@@ -39,9 +39,11 @@
             qemu.extraArgs = [
               # GPU
               "-device"
-              ''{"driver":"virtio-vga-gl","id":"video0","max_outputs":1}''
+              "virtio-gpu-gl,blob=on,venus=off,hostmem=2G"
               "-display"
-              "egl-headless,rendernode=/dev/dri/renderD128"
+              "egl-headless"
+              "-vga"
+              "none"
               # AUDIO
               "-audiodev"
               "driver=pipewire,id=audio1,out.latency=30000,out.buffer-length=60000,in.latency=30000,in.buffer-length=60000"
