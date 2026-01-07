@@ -30,7 +30,7 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      graham = "grahamx";
+      graham = "graham";
     in
     {
       packages.${system} = {

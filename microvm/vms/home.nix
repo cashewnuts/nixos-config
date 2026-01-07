@@ -75,7 +75,7 @@
         tag = "persist";
         # Source path can be absolute or relative
         # to /var/lib/microvms/$hostName
-        source = "/var/lib/microvms/.persist";
+        source = "/var/lib/microvms/.persist/${username}";
         mountPoint = "/persist";
       }
       {
@@ -148,6 +148,9 @@
 
   fileSystems."/persist".neededForBoot = lib.mkForce true;
   environment.persistence."/persist" = {
+    directories = [
+      "/var/lib/nixos"
+    ];
     files = [
       "/etc/ssh/ssh_host_ed25519_key"
       "/etc/ssh/ssh_host_ed25519_key.pub"
