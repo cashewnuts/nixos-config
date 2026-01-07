@@ -5,11 +5,11 @@
   ...
 }:
 let
-  grahamx = import ./vm.nix {
+  home = import ./vm.nix {
     inherit nixpkgs;
     inherit impermanence;
-    vm = "graphic";
-    username = "graham";
+    vm = "home";
+    username = "alice";
     index = "01";
   };
 in
@@ -17,8 +17,7 @@ in
   imports = [
     microvm.nixosModules.host
     ./host.nix
-    grahamx
-    ./vms/home.nix
+    home
     ./vms/k3s.nix
   ];
 }

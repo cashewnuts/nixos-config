@@ -1,9 +1,13 @@
 {
+  lib,
+  config,
   pkgs,
   ...
 }:
 {
-  environment.systemPackages = with pkgs; [
-    waypipe
-  ];
+  config = lib.mkIf config.my.waypipe.enable {
+    environment.systemPackages = with pkgs; [
+      waypipe
+    ];
+  };
 }

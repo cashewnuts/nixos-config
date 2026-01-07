@@ -103,20 +103,9 @@
             };
             modules = [
               ./hosts/metal/configuration.nix
+              ./options.nix
               ./system/users/steav.nix
-              ./system/fonts.nix
-              ./system/hyprland.nix
-              ./system/fcitx5.nix
-              ./system/firefox.nix
-              ./system/stub-ld.nix
-              ./system/appimage.nix
-              ./system/flatpak.nix
-              ./system/libvirt.nix
-              ./system/waypipe.nix
-              ./system/ssh.nix
-              ./system/avahi.nix
-              ./system/networkmanager.nix
-              ./system/cloud-hypervisor.nix
+              ./system
               ./microvm
               home-manager.nixosModules.home-manager
               {
@@ -149,15 +138,9 @@
             };
             modules = [
               ./hosts/kvm/luks/configuration.nix
+              ./options.nix
               ./system/users/alice.nix
-              ./system/fonts.nix
-              ./system/hyprland.nix
-              ./system/fcitx5.nix
-              ./system/firefox.nix
-              ./system/stub-ld.nix
-              ./system/appimage.nix
-              ./system/openssh.nix
-              ./system/waypipe.nix
+              ./system
               home-manager.nixosModules.home-manager
               {
                 home-manager = {
@@ -189,15 +172,9 @@
             };
             modules = [
               ./hosts/kvm/luks/configuration.nix
+              ./options.nix
               ./system/users/oscar.nix
-              ./system/fonts.nix
-              ./system/hyprland.nix
-              ./system/fcitx5.nix
-              ./system/firefox.nix
-              ./system/stub-ld.nix
-              ./system/appimage.nix
-              ./system/openssh.nix
-              ./system/waypipe.nix
+              ./system
               home-manager.nixosModules.home-manager
               {
                 home-manager = {
@@ -230,12 +207,9 @@
             };
             modules = [
               ./hosts/kvm/luks/configuration.nix
+              ./options.nix
               ./system/users/ted.nix
-              ./system/fonts.nix
-              ./system/hyprland.nix
-              ./system/fcitx5.nix
-              ./system/firefox.nix
-              ./system/appimage.nix
+              ./system
               home-manager.nixosModules.home-manager
               {
                 home-manager = {

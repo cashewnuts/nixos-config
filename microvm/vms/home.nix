@@ -1,176 +1,158 @@
 {
-  config,
   lib,
   impermanence,
-  nixpkgs,
+  username,
   ...
 }:
 {
-  microvm.vms =
-    let
-      username = "alice";
-      system = "x86_64-linux";
-    in
-    {
+  microvm = {
+    optimize.enable = false;
+    vcpu = 4;
+    mem = 6144;
+    hugepageMem = 6144;
 
-      "${username}" = {
-        # The package set to use for the microvm. This also determines the microvm's architecture.
-        # Defaults to the host system's package set if not given.
-        pkgs = import nixpkgs { inherit system; };
+    qemu.extraArgs = [
+      # GPU
+      "-device"
+      "virtio-gpu-gl,blob=on,venus=off,hostmem=2G"
+      "-display"
+      "egl-headless"
+      "-vga"
+      "none"
+      # AUDIO
+      "-audiodev"
+      "driver=pipewire,id=audio1,out.latency=30000,out.buffer-length=60000,in.latency=30000,in.buffer-length=60000"
+      "-device"
+      "ich9-intel-hda"
+      "-device"
+      "hda-duplex,audiodev=audio1"
+    ];
 
-        autostart = false;
+    interfaces = [
+      {
+        type = "tap";
+        id = "mvm-${username}";
+        mac = "02:00:00:00:04:01";
+      }
+    ];
 
-        # (Optional) A set of special arguments to be passed to the MicroVM's NixOS modules.
-        specialArgs = {
-          username = username;
-        };
+    devices = [
+      {
+        # Dummy for usb
+        # https://github.com/microvm-nix/microvm.nix/blob/f4ae3dc4ee4c9b585b03c36bd73ef68d2a8eb3a9/lib/runners/qemu.nix#L64
+        bus = "usb";
+        path = "";
+      }
+    ];
 
-        # The configuration for the MicroVM.
-        # Multiple definitions will be merged as expected.
-        config = {
-          # It is highly recommended to share the host's nix-store
-          # with the VMs to prevent building huge images.
-          microvm = {
-            optimize.enable = false;
-            vcpu = 4;
-            mem = 6144;
-            hugepageMem = 6144;
+    writableStoreOverlay = "/nix/.rw-store";
 
-            qemu.extraArgs = [
-              # GPU
-              "-device"
-              "virtio-gpu-gl,blob=on,venus=off,hostmem=2G"
-              "-display"
-              "egl-headless"
-              "-vga"
-              "none"
-              # AUDIO
-              "-audiodev"
-              "driver=pipewire,id=audio1,out.latency=30000,out.buffer-length=60000,in.latency=30000,in.buffer-length=60000"
-              "-device"
-              "ich9-intel-hda"
-              "-device"
-              "hda-duplex,audiodev=audio1"
-            ];
+    volumes = [
+      {
+        fsType = "ext4";
+        autoCreate = false;
+        image = "/dev/vg01/microvm-${username}-store";
+        mountPoint = "/nix/.rw-store";
+      }
+      {
+        fsType = "ext4";
+        autoCreate = false;
+        image = "/dev/mapper/microvm-${username}";
+        mountPoint = "/home/${username}";
+      }
+    ];
 
-            interfaces = [
-              {
-                type = "tap";
-                id = "mvm-${username}";
-                mac = "02:00:00:00:01:01";
-              }
-            ];
+    shares = [
+      {
+        proto = "virtiofs";
+        source = "/nix/store";
+        mountPoint = "/nix/.ro-store";
+        tag = "ro-store";
+        readOnly = true;
+      }
+      {
+        proto = "virtiofs";
+        tag = "persist";
+        # Source path can be absolute or relative
+        # to /var/lib/microvms/$hostName
+        source = "/var/lib/microvms/.persist";
+        mountPoint = "/persist";
+      }
+      {
+        proto = "virtiofs";
+        tag = "nixos-config";
+        source = "/home/steav/nixos-config";
+        mountPoint = "/home/${username}/nixos-config";
+      }
+    ];
+  };
 
-            devices = [
-              {
-                # Dummy for usb
-                # https://github.com/microvm-nix/microvm.nix/blob/f4ae3dc4ee4c9b585b03c36bd73ef68d2a8eb3a9/lib/runners/qemu.nix#L64
-                bus = "usb";
-                path = "";
-              }
-            ];
+  services.udev.extraRules = ''
+    # 特定の HID デバイスの権限を 0666 にする
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="18d1", ATTRS{idProduct}=="9470", MODE="0666"
+    KERNEL=="hidraw*", ATTRS{idVendor}=="18d1", ATTRS{idProduct}=="9470", MODE="0666"
+  '';
 
-            writableStoreOverlay = "/nix/.rw-store";
+  users.authorizedKeys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOTlpccJLaR57c6RJ2GO/p/nFFjFhB6W2tIBRymOdkCP steav@main"
+  ];
 
-            volumes = [
-              {
-                fsType = "ext4";
-                autoCreate = false;
-                image = "/dev/vg01/microvm-${username}-store";
-                mountPoint = "/nix/.rw-store";
-              }
-              {
-                fsType = "ext4";
-                autoCreate = false;
-                image = "/dev/mapper/microvm-${username}";
-                mountPoint = "/home/${username}";
-              }
-            ];
+  programs.dconf.enable = true;
 
-            shares = [
-              {
-                proto = "virtiofs";
-                source = "/nix/store";
-                mountPoint = "/nix/.ro-store";
-                tag = "ro-store";
-                readOnly = true;
-              }
-              {
-                proto = "virtiofs";
-                tag = "persist";
-                # Source path can be absolute or relative
-                # to /var/lib/microvms/$hostName
-                source = "/var/lib/microvms/.persist";
-                mountPoint = "/persist";
-              }
-              {
-                proto = "virtiofs";
-                tag = "nixos-config";
-                source = "/home/steav/nixos-config";
-                mountPoint = "/home/${username}/nixos-config";
-              }
-            ];
-          };
+  # Any other configuration for your MicroVM
+  imports = [
+    impermanence.nixosModules.impermanence
+    ./user/alice.nix
+    ./modules/network.nix
+    ../../options.nix
+    ../../system
+  ];
 
-          services.udev.extraRules = ''
-            # 特定の HID デバイスの権限を 0666 にする
-            SUBSYSTEMS=="usb", ATTRS{idVendor}=="18d1", ATTRS{idProduct}=="9470", MODE="0666"
-            KERNEL=="hidraw*", ATTRS{idVendor}=="18d1", ATTRS{idProduct}=="9470", MODE="0666"
-          '';
-
-          openssh.secure = false;
-          users.authorizedKeys = [
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOTlpccJLaR57c6RJ2GO/p/nFFjFhB6W2tIBRymOdkCP steav@main"
-          ];
-
-          programs.dconf.enable = true;
-
-          # Any other configuration for your MicroVM
-          imports = [
-            impermanence.nixosModules.impermanence
-            ./user/alice.nix
-            ./modules/network.nix
-            ../../system/fonts.nix
-            ../../system/avahi.nix
-            ../../system/openssh.nix
-            ../../system/waypipe.nix
-            ../../system/firefox.nix
-            ../../system/appimage.nix
-          ];
-
-          # Graphics
-          hardware.graphics.enable = true;
-          # Wayland アプリを headless で動かすために必要
-          environment.variables = {
-            XDG_RUNTIME_DIR = "/run/user/1000";
-          };
-
-          services.pipewire = {
-            enable = true;
-            systemWide = true;
-            alsa.enable = true;
-            alsa.support32Bit = true;
-            pulse.enable = true;
-            wireplumber = {
-              enable = true;
-            };
-          };
-          environment.etc."wireplumber/wireplumber.conf.d/50-default-volume.conf".text = ''
-            wireplumber.settings = {
-              device.routes.default-sink-volume = 1.0
-            }
-          '';
-
-          fileSystems."/persist".neededForBoot = lib.mkForce true;
-          environment.persistence."/persist" = {
-            files = [
-              "/etc/ssh/ssh_host_ed25519_key"
-              "/etc/ssh/ssh_host_ed25519_key.pub"
-              "/etc/ssh/ssh_host_rsa_key"
-              "/etc/ssh/ssh_host_rsa_key.pub"
-            ];
-          };
-        };
-      };
+  my = {
+    fonts.enable = true;
+    avahi.enable = true;
+    openssh = {
+      enable = true;
+      secure = false;
     };
+    waypipe.enable = true;
+    firefox = {
+      enable = true;
+      type = "home";
+    };
+    appimage.enable = true;
+  };
+
+  # Graphics
+  hardware.graphics.enable = true;
+  # Wayland アプリを headless で動かすために必要
+  environment.variables = {
+    XDG_RUNTIME_DIR = "/run/user/1000";
+  };
+
+  services.pipewire = {
+    enable = true;
+    systemWide = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    wireplumber = {
+      enable = true;
+    };
+  };
+  environment.etc."wireplumber/wireplumber.conf.d/50-default-volume.conf".text = ''
+    wireplumber.settings = {
+      device.routes.default-sink-volume = 1.0
+    }
+  '';
+
+  fileSystems."/persist".neededForBoot = lib.mkForce true;
+  environment.persistence."/persist" = {
+    files = [
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_ed25519_key.pub"
+      "/etc/ssh/ssh_host_rsa_key"
+      "/etc/ssh/ssh_host_rsa_key.pub"
+    ];
+  };
 }

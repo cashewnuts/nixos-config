@@ -55,4 +55,19 @@
     ];
     allowed-users = [ username ];
   };
+
+  my = {
+    firefox = {
+      enable = true;
+      type = "developer";
+    };
+    fonts.enable = true;
+    hyprland.enable = true;
+    fcitx5.enable = true;
+    stub-ld.enable = true;
+    appimage.enable = true;
+    openssh.enable = true;
+    waypipe.enable = true;
+    avahi.enable = true;
+  };
 }

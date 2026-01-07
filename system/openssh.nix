@@ -5,23 +5,13 @@
   ...
 }:
 {
-  options.openssh = with lib; {
-    secure = mkOption {
-      type = types.bool;
-      default = true;
-      description = ''
-        Whether disallow password authentication or not.
-      '';
-    };
-  };
-
-  config = {
+  config = lib.mkIf config.my.openssh.enable {
     services.openssh = {
       enable = true;
       ports = [ 22 ];
       settings =
         let
-          passAuth = if config.openssh.secure then false else true;
+          passAuth = if config.my.openssh.secure then false else true;
         in
         {
           PasswordAuthentication = passAuth;

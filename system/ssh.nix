@@ -1,8 +1,12 @@
 {
+  lib,
+  config,
   ...
 }:
 {
-  programs.ssh = {
-    setXAuthLocation = true;
+  config = lib.mkIf config.my.ssh.enable {
+    programs.ssh = {
+      setXAuthLocation = true;
+    };
   };
 }

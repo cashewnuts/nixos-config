@@ -5,34 +5,20 @@
   ...
 }:
 let
-  serverIp = lib.optionals (config.k3s.ip != null) [
-    "--node-ip=${config.k3s.ip}"
-    "--node-external-ip=${config.k3s.ip}"
+  k3s = config.my.k3s;
+  serverIp = lib.optionals (k3s.ip != null) [
+    "--node-ip=${k3s.ip}"
+    "--node-external-ip=${k3s.ip}"
     # "--bind-address=${config.k3s.ip}"
   ];
   # config.services.k3s ではなく、自前で定義した config.k3s を参照
   sanList =
-    (lib.optional (config.k3s.fqdn != null) config.k3s.fqdn)
-    ++ (lib.optional (config.k3s.ip != null) config.k3s.ip)
-    ++ [ ];
+    (lib.optional (k3s.fqdn != null) k3s.fqdn) ++ (lib.optional (k3s.ip != null) k3s.ip) ++ [ ];
 
   tlsSanArg = lib.optional (sanList != [ ]) "--tls-san=${lib.concatStringsSep "," sanList}";
 in
 {
-  options.k3s = {
-    fqdn = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
-      default = null;
-      description = "FQDN for K3s TLS SAN";
-    };
-    ip = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
-      default = null;
-      description = "IP for K3s TLS SAN";
-    };
-  };
-
-  config = {
+  config = lib.mkIf k3s.enable {
     services.k3s = {
       enable = true;
       role = "server";

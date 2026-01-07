@@ -41,7 +41,7 @@
               {
                 type = "tap";
                 id = "mvm-${vm01}";
-                mac = "02:00:00:00:01:01";
+                mac = "02:00:00:01:00:01";
               }
             ];
 
@@ -81,7 +81,6 @@
 
           networking.hostName = "${vm01}";
 
-          openssh.secure = false;
           users.authorizedKeys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOTlpccJLaR57c6RJ2GO/p/nFFjFhB6W2tIBRymOdkCP steav@main"
           ];
@@ -90,14 +89,21 @@
           imports = [
             impermanence.nixosModules.impermanence
             ./user/monitor.nix
-            ../../system/avahi.nix
-            ../../system/openssh.nix
-            ../../system/k3s.nix
+            ../../options.nix
+            ../../system
           ];
 
-          k3s = {
-            fqdn = "k3s.local";
-            ip = "192.168.180.200";
+          my = {
+            avahi.enable = true;
+            openssh = {
+              enable = true;
+              secure = false;
+            };
+            k3s = {
+              enable = true;
+              fqdn = "k3s.local";
+              ip = "192.168.180.200";
+            };
           };
 
           systemd.network.enable = true;

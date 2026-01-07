@@ -1,7 +1,10 @@
-{ ... }:
+{ lib, config, ... }:
 {
-  programs.appimage = {
-    enable = true;
-    binfmt = true;
+
+  config = lib.mkIf config.my.appimage.enable {
+    programs.appimage = {
+      enable = true;
+      binfmt = true;
+    };
   };
 }

@@ -74,7 +74,6 @@
     KERNEL=="hidraw*", ATTRS{idVendor}=="18d1", ATTRS{idProduct}=="9470", MODE="0666"
   '';
 
-  openssh.secure = false;
   users.authorizedKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOTlpccJLaR57c6RJ2GO/p/nFFjFhB6W2tIBRymOdkCP steav@main"
   ];
@@ -85,12 +84,23 @@
     ./modules/hardware.nix
     ./modules/network.nix
     ./user/graham.nix
-    ../../system/fonts.nix
-    ../../system/avahi.nix
-    ../../system/openssh.nix
-    ../../system/waypipe.nix
-    ../../system/firefox.nix
+    ../../options.nix
+    ../../system
   ];
+
+  my = {
+    fonts.enable = true;
+    avahi.enable = true;
+    openssh = {
+      enable = true;
+      secure = false;
+    };
+    waypipe.enable = true;
+    firefox = {
+      enable = true;
+      type = "private";
+    };
+  };
 
   # Graphics
   hardware.graphics.enable = true;

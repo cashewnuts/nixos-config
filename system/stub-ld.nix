@@ -1,3 +1,6 @@
+{ lib, config, ... }:
 {
-  programs.nix-ld.enable = true;
+  config = lib.mkIf config.my.stub-ld.enable {
+    programs.nix-ld.enable = true;
+  };
 }

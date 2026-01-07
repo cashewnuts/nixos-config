@@ -1,6 +1,4 @@
 {
-  config,
-  lib,
   username,
   pkgs,
   ...
@@ -44,5 +42,17 @@
       "flakes"
     ];
     allowed-users = [ username ];
+  };
+
+  my = {
+    firefox = {
+      enable = true;
+      type = "home";
+    };
+    fonts.enable = true;
+    hyprland.enable = true;
+    fcitx5.enable = true;
+    stub-ld.enable = true;
+    appimage.enable = true;
   };
 }
