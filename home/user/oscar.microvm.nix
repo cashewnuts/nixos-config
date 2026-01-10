@@ -56,9 +56,24 @@
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
     # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+    (pkgs.writeShellScriptBin "install-nodenv" ''
+      set -euo pipefail
+
+      if [ ! -d ~/.nodenv ]; then
+        git clone https://github.com/nodenv/nodenv.git ~/.nodenv
+      fi
+      if ! grep -q 'nodenv init' ~/.zsh_custom; then
+        echo 'eval "$(~/.nodenv/bin/nodenv init - --no-rehash zsh)"' >> ~/.zsh_custom
+      fi
+
+      export PATH="$HOME/.nodenv/bin:$PATH"
+      eval "$(nodenv init -)"
+
+      mkdir -p "$(nodenv root)"/plugins
+      if [ ! -d "$(nodenv root)"/plugins/node-build ]; then
+        git clone https://github.com/nodenv/node-build.git "$(nodenv root)"/plugins/node-build
+      fi
+    '')
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -103,6 +118,17 @@
     settings.user = {
       name = username;
       email = "cashewnuts903+${username}@gmail.com";
+    };
+  };
+
+  programs.zsh = {
+    envExtra = ''
+      export PATH="$PATH:$HOME/.local/bin"
+    '';
+
+    shellAliases = {
+      wl-copy = "kitten clipboard";
+      wl-paste = "kitten clipboard --get-clipboard";
     };
   };
 }

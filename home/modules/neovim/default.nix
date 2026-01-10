@@ -3,6 +3,7 @@
   imports = [
     ./blink-cmp.nix
     ./bufferline.nix
+    ./clipboard.nix
     ./colorschemes.nix
     ./gitgutter.nix
     ./keymaps.nix

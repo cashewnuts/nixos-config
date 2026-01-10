@@ -74,9 +74,10 @@
     waypipe.enable = true;
     firefox = {
       enable = true;
-      type = "home";
+      type = "developer";
     };
     appimage.enable = true;
+    stub-ld.enable = true;
 
     microvm = {
       openssh.enable = true;

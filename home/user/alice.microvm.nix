@@ -118,5 +118,10 @@
     envExtra = ''
       export PATH="$PATH:$HOME/.local/bin"
     '';
+
+    shellAliases = {
+      wl-copy = "kitten clipboard";
+      wl-paste = "kitten clipboard --get-clipboard";
+    };
   };
 }
