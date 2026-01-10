@@ -49,6 +49,24 @@
               ../home/user/alice.microvm.nix
             ];
           };
+        oscar =
+          let
+            username = "oscar";
+            pkgs = nixpkgs.legacyPackages.${system};
+          in
+          home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            extraSpecialArgs = {
+              inherit system;
+              inherit username;
+              inherit nixvim;
+              inherit stylix;
+            };
+            modules = [
+              stylix.homeModules.stylix
+              ../home/user/oscar.microvm.nix
+            ];
+          };
       };
     };
 }

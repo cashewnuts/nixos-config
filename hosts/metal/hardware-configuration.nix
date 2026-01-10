@@ -67,6 +67,7 @@
     text = ''
       # <volume-name> <encrypted-device> [key-file] [options]
       microvm-alice	UUID=9d2ee436-b47b-4023-942d-3a3f1c2a5227	none	noauto,discard,fido2-device=auto
+      microvm-oscar	UUID=8fc08548-c359-479f-abce-0bf5e36d9959	none	noauto,discard,fido2-device=auto
     '';
   };
 
