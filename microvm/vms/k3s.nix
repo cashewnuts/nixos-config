@@ -1,9 +1,6 @@
 {
-  config,
-  lib,
-  impermanence,
-  pkgs,
   nixpkgs,
+  impermanence,
   ...
 }:
 {
@@ -53,37 +50,9 @@
                 mountPoint = "/var/lib/rancher/k3s";
               }
             ];
-
-            shares = [
-              {
-                proto = "virtiofs";
-                source = "/nix/store";
-                mountPoint = "/nix/.ro-store";
-                tag = "ro-store";
-                readOnly = true;
-              }
-              {
-                proto = "virtiofs";
-                tag = "persist";
-                # Source path can be absolute or relative
-                # to /var/lib/microvms/$hostName
-                source = "/var/lib/microvms/.persist/${vm01}";
-                mountPoint = "/persist";
-              }
-              {
-                proto = "virtiofs";
-                tag = "journal";
-                source = "journal";
-                mountPoint = "/var/log/journal";
-              }
-            ];
           };
 
           networking.hostName = "${vm01}";
-
-          users.authorizedKeys = [
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOTlpccJLaR57c6RJ2GO/p/nFFjFhB6W2tIBRymOdkCP steav@main"
-          ];
 
           # Any other configuration for your MicroVM
           imports = [
@@ -91,6 +60,7 @@
             ./user/monitor.nix
             ../../options.nix
             ../../system
+            ./modules
           ];
 
           my = {
@@ -103,6 +73,15 @@
               enable = true;
               fqdn = "k3s.local";
               ip = "192.168.180.200";
+            };
+
+            microvm = {
+              openssh.enable = true;
+              persistence = {
+                enable = true;
+                source = "/var/lib/microvms/.persist/${vm01}";
+              };
+              nix-store.enable = true;
             };
           };
 
@@ -127,21 +106,6 @@
 
             # 必要に応じて DHCP を明示的にオフにする
             networkConfig.IPv6PrivacyExtensions = "kernel";
-          };
-
-          environment.systemPackages = with pkgs; [ ];
-
-          fileSystems."/persist".neededForBoot = lib.mkForce true;
-          environment.persistence."/persist" = {
-            directories = [
-              "/var/lib/nixos"
-            ];
-            files = [
-              "/etc/ssh/ssh_host_ed25519_key"
-              "/etc/ssh/ssh_host_ed25519_key.pub"
-              "/etc/ssh/ssh_host_rsa_key"
-              "/etc/ssh/ssh_host_rsa_key.pub"
-            ];
           };
         };
       };

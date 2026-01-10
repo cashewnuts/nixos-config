@@ -7,16 +7,6 @@
 }:
 
 {
-  options.users = with lib; {
-    authorizedKeys = mkOption {
-      type = types.listOf types.str;
-      default = [ ];
-      description = ''
-        openssh authorized keys for the user
-      '';
-    };
-  };
-
   config = {
     networking.hostName = username;
     users.users.root.password = "";
@@ -35,14 +25,11 @@
       openssh.authorizedKeys.keys = [
         # Add authorized keys
       ]
-      ++ config.users.authorizedKeys;
+      ++ config.my.microvm.openssh.authorizedKeys;
       packages = with pkgs; [
         tree
         file
         cryptsetup
-        neovim
-        vlc
-        mcomix
       ];
     };
     security.sudo = {
@@ -58,7 +45,17 @@
       autosuggestions.enable = true;
       syntaxHighlighting.enable = true;
 
-      shellAliases = { };
+      loginShellInit = lib.mkOrder 1000 ''
+        install-home-manager() {
+          nix-channel --add https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz home-manager
+          nix-channel --update
+          nix-shell '<home-manager>' -A install
+        }
+      '';
+
+      shellAliases = {
+        home-update = "home-manager switch --flake ~/nixos-config/home-standalone";
+      };
 
       histSize = 10000;
       histFile = "$HOME/.zsh_history";

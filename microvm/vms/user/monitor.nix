@@ -7,16 +7,6 @@
 }:
 
 {
-  options.users = with lib; {
-    authorizedKeys = mkOption {
-      type = types.listOf types.str;
-      default = [ ];
-      description = ''
-        openssh authorized keys for the user
-      '';
-    };
-  };
-
   config = {
     users.users.root.password = "";
     time.timeZone = "Asia/Tokyo";
@@ -30,7 +20,7 @@
       openssh.authorizedKeys.keys = [
         # Add authorized keys
       ]
-      ++ config.users.authorizedKeys;
+      ++ config.my.microvm.openssh.authorizedKeys;
       packages = with pkgs; [
         tree
         file
