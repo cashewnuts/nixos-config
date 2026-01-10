@@ -178,9 +178,8 @@
       vv = "virt-viewer --spice-usbredir-auto-redirect-filter='-1,-1,-1,-1,0' --spice-usbredir-redirect-on-connect='-1,0x18d1,0x9470,-1,1' --hotkeys=toggle-fullscreen=shift+f11 -a -d --connect qemu:///system";
       alice = "kitten ssh alice@alice.microvm.vm";
       walice = "waypipe --no-gpu ssh alice@alice.microvm.vm";
-      oscar = "kitten ssh oscar@oscar.internal.vm";
-      woscar = "waypipe --no-gpu ssh oscar@oscar.internal.vm";
-      xoscar = "ssh -X oscar@oscar.internal.vm";
+      oscar = "kitten ssh oscar@oscar.microvm.vm";
+      woscar = "waypipe --no-gpu ssh oscar@oscar.microvm.vm";
       graham = "kitten ssh graham@graham.microvm.vm";
       wgraham = "waypipe --no-gpu ssh graham@graham.microvm.vm";
     };
