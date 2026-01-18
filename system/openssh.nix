@@ -19,6 +19,7 @@
           PermitRootLogin = "no";
           AllowUsers = [ username ];
           X11Forwarding = true;
+          StreamLocalBindUnlink = "yes";
         };
     };
   };

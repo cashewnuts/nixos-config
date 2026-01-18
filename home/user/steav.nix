@@ -16,6 +16,7 @@
     ../modules/neovim.nix
     ../modules/ssh-agent.nix
     ../modules/stylix.nix
+    ../modules/fcitx5-bridge.nix
   ];
 
   # due to home-manager/stylix bug add this line
@@ -182,6 +183,39 @@
       woscar = "waypipe --no-gpu ssh oscar@oscar.microvm.vm";
       graham = "kitten ssh graham@graham.microvm.vm";
       wgraham = "waypipe --no-gpu ssh graham@graham.microvm.vm";
+    };
+  };
+
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    matchBlocks = {
+      "alice alice.*" = {
+        hostname = "alice.microvm.vm";
+        remoteForwards = [
+          {
+            bind.address = "/tmp/fcitx-remote.sock";
+            host.address = "/run/user/1000/fcitx5-remote.sock";
+          }
+        ];
+        extraOptions = {
+          "ExitOnForwardFailure" = "yes";
+          "StreamLocalBindUnlink" = "yes";
+        };
+      };
+      "oscar oscar.*" = {
+        hostname = "oscar.microvm.vm";
+        remoteForwards = [
+          {
+            bind.address = "/tmp/fcitx-remote.sock";
+            host.address = "/run/user/1000/fcitx5-remote.sock";
+          }
+        ];
+        extraOptions = {
+          "ExitOnForwardFailure" = "yes";
+          "StreamLocalBindUnlink" = "yes";
+        };
+      };
     };
   };
 }

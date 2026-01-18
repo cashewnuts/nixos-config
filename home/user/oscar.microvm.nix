@@ -13,6 +13,7 @@
     ../modules/neovim.nix
     ../modules/ssh-agent.nix
     ../modules/stylix.nix
+    ../modules/fcitx5-remote.nix
   ];
 
   # due to home-manager/stylix bug add this line

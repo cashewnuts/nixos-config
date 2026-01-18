@@ -5,6 +5,7 @@
     ./bufferline.nix
     ./clipboard.nix
     ./colorschemes.nix
+    ./fcitx5-remote.nix
     ./gitgutter.nix
     ./keymaps.nix
     ./lualine.nix
