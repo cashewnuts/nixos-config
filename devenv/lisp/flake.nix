@@ -1,5 +1,5 @@
 {
-  description = "Rust development environment";
+  description = "Lisp development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -20,11 +20,13 @@
         };
       in
       {
-        devShell =
-          with pkgs;
-          mkShell {
-            nativeBuildInputs = with pkgs.buildPackages; [ appimage-run ];
-          };
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            sbcl
+            rlwrap
+            roswell
+          ];
+        };
       }
     );
 }
