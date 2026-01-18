@@ -189,33 +189,35 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks = {
-      "alice alice.*" = {
-        hostname = "alice.microvm.vm";
-        remoteForwards = [
-          {
-            bind.address = "/tmp/fcitx-remote.sock";
-            host.address = "/run/user/1000/fcitx5-remote.sock";
-          }
-        ];
+    matchBlocks =
+      let
+        forward-fcitx5 = {
+          bind.address = "/tmp/fcitx5-remote.sock";
+          host.address = "/run/user/1000/fcitx5-remote.sock";
+        };
         extraOptions = {
           "ExitOnForwardFailure" = "yes";
           "StreamLocalBindUnlink" = "yes";
+          "ControlMaster" = "auto";
+          "ControlPath" = "~/.ssh/master-%r@%h:%p";
+          "ControlPersist" = "yes";
+        };
+      in
+      {
+        "alice alice.*" = {
+          hostname = "alice.microvm.vm";
+          remoteForwards = [
+            forward-fcitx5
+          ];
+          inherit extraOptions;
+        };
+        "oscar oscar.*" = {
+          hostname = "oscar.microvm.vm";
+          remoteForwards = [
+            forward-fcitx5
+          ];
+          inherit extraOptions;
         };
       };
-      "oscar oscar.*" = {
-        hostname = "oscar.microvm.vm";
-        remoteForwards = [
-          {
-            bind.address = "/tmp/fcitx-remote.sock";
-            host.address = "/run/user/1000/fcitx5-remote.sock";
-          }
-        ];
-        extraOptions = {
-          "ExitOnForwardFailure" = "yes";
-          "StreamLocalBindUnlink" = "yes";
-        };
-      };
-    };
   };
 }
