@@ -12,6 +12,7 @@
     ./k3s.nix
     ./libvirt.nix
     ./networkmanager.nix
+    ./openmosh.nix
     ./openssh.nix
     ./ssh.nix
     ./stub-ld.nix

@@ -71,6 +71,7 @@
       enable = true;
       secure = false;
     };
+    openmosh.enable = true;
     waypipe.enable = true;
     firefox = {
       enable = true;

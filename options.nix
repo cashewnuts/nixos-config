@@ -53,6 +53,9 @@
     networkmanager = {
       enable = lib.mkEnableOption "Enable";
     };
+    openmosh = {
+      enable = lib.mkEnableOption "Enable";
+    };
     openssh = {
       enable = lib.mkEnableOption "Enable";
       secure = lib.mkOption {
