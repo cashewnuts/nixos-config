@@ -81,6 +81,12 @@
     allowed-users = [ username ];
   };
 
+  # Firewall の設定
+  networking.firewall.allowedTCPPorts = [
+    # fcitx5-bridge
+    22123
+  ];
+
   my = {
     firefox = {
       enable = true;

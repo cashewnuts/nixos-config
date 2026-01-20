@@ -194,11 +194,6 @@
     enableDefaultConfig = false;
     matchBlocks =
       let
-        forward-fcitx5 = {
-          bind.port = 22123;
-          host.address = "localhost";
-          host.port = 22123;
-        };
         extraOptions = {
           "ServerAliveInterval" = "30";
           "ServerAliveCountMax" = "3";
@@ -208,16 +203,10 @@
       {
         "alice alice.*" = {
           hostname = "alice.microvm.vm";
-          remoteForwards = [
-            forward-fcitx5
-          ];
           inherit extraOptions;
         };
         "oscar oscar.*" = {
           hostname = "oscar.microvm.vm";
-          remoteForwards = [
-            forward-fcitx5
-          ];
           inherit extraOptions;
         };
       };
