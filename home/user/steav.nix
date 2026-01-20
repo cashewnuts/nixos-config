@@ -192,15 +192,14 @@
     matchBlocks =
       let
         forward-fcitx5 = {
-          bind.address = "/tmp/fcitx5-remote.sock";
-          host.address = "/run/user/1000/fcitx5-remote.sock";
+          bind.port = 22123;
+          host.address = "localhost";
+          host.port = 22123;
         };
         extraOptions = {
-          "ExitOnForwardFailure" = "yes";
-          "StreamLocalBindUnlink" = "yes";
-          "ControlMaster" = "auto";
-          "ControlPath" = "~/.ssh/master-%r@%h:%p";
-          "ControlPersist" = "yes";
+          "ServerAliveInterval" = "30";
+          "ServerAliveCountMax" = "3";
+          "ConnectTimeout" = "10";
         };
       in
       {
