@@ -41,7 +41,9 @@
       hlsearch = false;
 
       # Visual settings
-      wrap = false;
+      wrap = true;
+      showbreak = "↪\\";
+      breakindent = true;
       cursorline = true;
       signcolumn = "yes";
     };

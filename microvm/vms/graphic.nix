@@ -61,6 +61,7 @@
       enable = true;
       type = "private";
     };
+    stub-ld.enable = true;
 
     microvm = {
       openssh.enable = true;
