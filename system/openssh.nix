@@ -20,6 +20,7 @@
           AllowUsers = [ username ];
           X11Forwarding = true;
           StreamLocalBindUnlink = "yes";
+          AcceptEnv = "LANG LC_* TERM TERM_* COLORTERM WEZTERM_*";
         };
     };
   };

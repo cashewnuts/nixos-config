@@ -9,6 +9,7 @@
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    enableVteIntegration = true;
 
     shellAliases = {
       update = "sudo nixos-rebuild switch --flake ~/nixos-config";

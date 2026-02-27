@@ -17,5 +17,6 @@
     ./ssh.nix
     ./stub-ld.nix
     ./waypipe.nix
+    ./wezterm.nix
   ];
 }

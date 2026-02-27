@@ -71,6 +71,7 @@
       enable = true;
       secure = false;
     };
+    wezterm.enable = true;
     openmosh.enable = true;
     waypipe.enable = true;
     firefox = {

@@ -79,6 +79,7 @@
     alsa-utils # aplay
     pulseaudio # pactl
     pciutils
+    nautilus
   ];
 
   environment.persistence."/persist" = {

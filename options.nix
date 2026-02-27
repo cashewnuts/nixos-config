@@ -34,6 +34,9 @@
     hyprland = {
       enable = lib.mkEnableOption "Enable";
     };
+    wezterm = {
+      enable = lib.mkEnableOption "Enable";
+    };
     k3s = {
       enable = lib.mkEnableOption "Enable";
       fqdn = lib.mkOption {

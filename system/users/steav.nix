@@ -94,6 +94,7 @@
     };
     fonts.enable = true;
     hyprland.enable = true;
+    wezterm.enable = true;
     fcitx5.enable = true;
     stub-ld.enable = true;
     appimage.enable = true;

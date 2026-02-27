@@ -28,6 +28,7 @@
 
     environment.systemPackages = [
       pkgs.kitty
+      pkgs.wezterm
       pkgs.wl-clipboard
     ];
 
