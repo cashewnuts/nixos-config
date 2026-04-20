@@ -182,12 +182,12 @@
       vv = "virt-viewer --spice-usbredir-auto-redirect-filter='-1,-1,-1,-1,0' --spice-usbredir-redirect-on-connect='-1,0x18d1,0x9470,-1,1' --hotkeys=toggle-fullscreen=shift+f11 -a -d --connect qemu:///system";
       alice = "wezterm connect SSHMUX:alice";
       malice = "mosh alice@alice.microvm.vm";
-      walice = "waypipe --no-gpu ssh alice@alice.microvm.vm";
+      walice = "waypipe --no-gpu --compress none ssh alice@alice.microvm.vm";
       oscar = "wezterm connect SSHMUX:oscar";
       moscar = "mosh oscar@oscar.microvm.vm";
-      woscar = "waypipe --no-gpu ssh oscar@oscar.microvm.vm";
+      woscar = "waypipe --no-gpu --compress none ssh oscar@oscar.microvm.vm";
       graham = "ssh graham@graham.microvm.vm";
-      wgraham = "waypipe --no-gpu ssh graham@graham.microvm.vm";
+      wgraham = "waypipe --no-gpu --compress none ssh graham@graham.microvm.vm";
     };
   };
 

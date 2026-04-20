@@ -83,7 +83,7 @@
       text = ''
         #!/usr/bin/env bash
 
-        ~/Applications/Obsidian-1.10.6.AppImage --enable-features=UseOzonePlatform --ozone-platform=wayland
+        ~/Applications/Obsidian-1.12.7.AppImage --enable-features=UseOzonePlatform --ozone-platform=wayland
       '';
     };
   };

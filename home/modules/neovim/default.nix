@@ -41,7 +41,7 @@
       hlsearch = false;
 
       # Visual settings
-      wrap = true;
+      wrap = false;
       showbreak = "↪\\";
       breakindent = true;
       cursorline = true;
@@ -61,5 +61,12 @@
       # Concealment level for current buffer
       conceallevel = 0;
     };
+    autoCmd = [
+      {
+        event = "FileType";
+        pattern = "markdown";
+        command = "setlocal wrap breakindent";
+      }
+    ];
   };
 }

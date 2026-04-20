@@ -100,6 +100,16 @@
         };
       }
       {
+        key = "E";
+        mode = [ "n" ];
+        action = "<cmd>lua Snacks.explorer()<CR>";
+        options = {
+          desc = "Open explorer";
+          silent = true;
+          noremap = true;
+        };
+      }
+      {
         key = "<leader>E";
         mode = [ "n" ];
         action = "<cmd>lua Snacks.explorer.reveal()<CR>";
