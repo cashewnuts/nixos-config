@@ -33,6 +33,7 @@
         neovim
         vlc
         mcomix
+        glmark2
       ];
     };
     security.sudo = {

@@ -1,5 +1,6 @@
 {
   nixpkgs,
+  nixpkgs-unstable,
   username,
   impermanence,
   index,
@@ -16,6 +17,7 @@
 
     # (Optional) A set of special arguments to be passed to the MicroVM's NixOS modules.
     specialArgs = {
+      inherit nixpkgs-unstable;
       inherit impermanence;
       inherit username;
       inherit index;

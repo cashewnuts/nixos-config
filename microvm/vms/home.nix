@@ -1,10 +1,13 @@
 {
+  pkgs,
+  nixpkgs-unstable,
   impermanence,
   username,
   ...
 }:
 {
   microvm = {
+    qemu.package = nixpkgs-unstable.legacyPackages.${pkgs.system}.qemu_kvm;
     optimize.enable = false;
     vcpu = 4;
     mem = 6144;
@@ -83,7 +86,10 @@
     microvm = {
       openssh.enable = true;
       sound.enable = true;
-      graphic.enable = true;
+      graphic = {
+        enable = true;
+        hostmem = "2G";
+      };
       persistence = {
         enable = true;
         source = "/var/lib/microvms/.persist/${username}";

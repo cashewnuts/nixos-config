@@ -19,6 +19,14 @@
     };
     graphic = {
       enable = lib.mkEnableOption "Enable";
+      hostmem = lib.mkOption {
+        type = lib.types.str;
+        default = "256M";
+        description = ''
+          Size of the QEMU virtio-gpu host memory window, typically between 256M and 8G.
+          The value must include a unit suffix (M or G).
+        '';
+      };
     };
     persistence = {
       enable = lib.mkEnableOption "Enable";

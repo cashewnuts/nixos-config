@@ -1,6 +1,7 @@
 {
   impermanence,
   pkgs,
+  nixpkgs-unstable,
   username,
   index,
   ...
@@ -9,6 +10,7 @@
   # It is highly recommended to share the host's nix-store
   # with the VMs to prevent building huge images.
   microvm = {
+    qemu.package = nixpkgs-unstable.legacyPackages.${pkgs.system}.qemu_kvm;
     optimize.enable = false;
     vcpu = 4;
     mem = 6144;
@@ -43,7 +45,7 @@
     impermanence.nixosModules.impermanence
     ./modules/hardware.nix
     ./modules/network.nix
-    ./user/graphic.nix
+    ./user/gpu.nix
     ../../options.nix
     ../../system
     ./modules
@@ -66,7 +68,10 @@
     microvm = {
       openssh.enable = true;
       sound.enable = true;
-      graphic.enable = true;
+      graphic = {
+        enable = true;
+        hostmem = "1G";
+      };
       persistence = {
         enable = true;
         source = "/var/lib/microvms/.persist/${username}";
@@ -80,6 +85,7 @@
     pulseaudio # pactl
     pciutils
     nautilus
+    vulkan-tools
   ];
 
   environment.persistence."/persist" = {

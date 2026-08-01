@@ -1,5 +1,6 @@
 {
   nixpkgs,
+  nixpkgs-unstable,
   pkgs,
   impermanence,
   microvm,
@@ -7,14 +8,18 @@
 }:
 let
   home = import ./vm.nix {
+    inherit pkgs;
     inherit nixpkgs;
+    inherit nixpkgs-unstable;
     inherit impermanence;
     vm = "home";
     username = "alice";
     index = "01";
   };
   developer = import ./vm.nix {
+    inherit pkgs;
     inherit nixpkgs;
+    inherit nixpkgs-unstable;
     inherit impermanence;
     vm = "developer";
     username = "oscar";

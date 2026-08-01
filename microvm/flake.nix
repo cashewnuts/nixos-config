@@ -8,6 +8,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     microvm = {
       url = "github:microvm-nix/microvm.nix";
@@ -24,6 +25,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       microvm,
       impermanence,
     }:
@@ -50,11 +52,12 @@
             };
             modules =
               let
-                vmModule = import ./vms/graphic.nix {
+                vmModule = import ./vms/gpu.nix {
                   inherit (nixpkgs) lib; # graphic.nix が必要としている引数
                   inherit
                     pkgs
                     nixpkgs
+                    nixpkgs-unstable
                     impermanence
                     ;
                   inherit username;

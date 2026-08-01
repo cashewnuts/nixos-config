@@ -15,6 +15,7 @@
     nixpkgs.overlays = [
       (final: prev: {
         qemu = nixpkgs-unstable.legacyPackages.${prev.system}.qemu;
+        qemu_kvm = nixpkgs-unstable.legacyPackages.${prev.system}.qemu_kvm;
       })
     ];
   };
