@@ -44,7 +44,6 @@
 
   boot.initrd.luks.devices."root" = {
     device = "/dev/disk/by-label/nixos";
-    preLVM = false;
     allowDiscards = true;
   };
 

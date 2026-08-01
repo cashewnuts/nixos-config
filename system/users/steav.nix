@@ -99,6 +99,7 @@
     stub-ld.enable = true;
     appimage.enable = true;
     flatpak.enable = true;
+    qemu.enable = true;
     libvirt.enable = true;
     waypipe.enable = true;
     ssh.enable = true;

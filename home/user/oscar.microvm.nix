@@ -16,6 +16,8 @@
     ../modules/fcitx5-remote.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
+
   # due to home-manager/stylix bug add this line
   home.enableNixpkgsReleaseCheck = false;
 

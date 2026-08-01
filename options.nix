@@ -50,6 +50,9 @@
         description = "IP for K3s TLS SAN";
       };
     };
+    qemu = {
+      enable = lib.mkEnableOption "Enable";
+    };
     libvirt = {
       enable = lib.mkEnableOption "Enable";
     };

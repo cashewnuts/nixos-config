@@ -16,18 +16,14 @@
     @import url("file://${./waybar/base.css}");
     @import url("file://${./waybar/${username}.css}");
   '';
-  home.file.".config/walker" = {
-    source = ./walker;
-    recursive = true;
-  };
   home.file.".config/hypr/hypridle.conf".source = ./hypridle/hypridle.conf;
   home.file.".config/hypr/hyprlock.conf".source = ./hyprlock/hyprlock.conf;
   home.packages = [
     pkgs.nautilus
     pkgs.waybar
-    pkgs.walker
     pkgs.hypridle
     pkgs.hyprlock
+    pkgs.hyprlauncher
     pkgs.brightnessctl
   ];
   services = {

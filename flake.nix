@@ -2,7 +2,8 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       # due to stylix error cannot use 25.05
       # url = "github:nix-community/home-manager/release-25.05";
@@ -10,7 +11,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim/nixos-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
@@ -35,6 +36,7 @@
     inputs@{
       self,
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       nixvim,
       stylix,
@@ -95,6 +97,7 @@
               inherit hostName;
               inherit username;
               inherit nixpkgs;
+              inherit nixpkgs-unstable;
               inherit microvm;
               inherit impermanence;
               inherit home-manager;

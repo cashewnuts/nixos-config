@@ -10,7 +10,6 @@ in
     "/NetworkManager/dnsmasq.d/microvm_dnsmasq.conf".text = ''
       interface=${mvm-bridge}
       interface=lo
-      bind-interfaces
 
       domain=microvm.vm
       local=/microvm.vm/

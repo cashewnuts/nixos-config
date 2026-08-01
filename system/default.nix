@@ -14,6 +14,7 @@
     ./networkmanager.nix
     ./openmosh.nix
     ./openssh.nix
+    ./qemu.nix
     ./ssh.nix
     ./stub-ld.nix
     ./waypipe.nix

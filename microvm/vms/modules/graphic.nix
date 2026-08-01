@@ -4,7 +4,7 @@
     microvm.qemu.extraArgs = [
       # GPU
       "-device"
-      "virtio-gpu-gl,blob=on,venus=off,hostmem=2G"
+      "virtio-gpu-gl,blob=on,venus=on,hostmem=2G"
       "-display"
       "egl-headless"
       "-vga"
